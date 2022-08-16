@@ -1,0 +1,11 @@
+name: Seichi-Like
+version: '${project.version}'
+main: seichilike.seichilike.SeichiLike
+api-version: 1.19
+authors: [ ytshiyugh ]
+description: seichi server's plugin like.
+commands:
+  bar-make:
+    permission: Seichi
+  bar-remove:
+    permission: Seichi
