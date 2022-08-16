@@ -34,6 +34,11 @@ public class CreateBossBar implements CommandExecutor {
             BossBar bb = Bukkit.createBossBar(NK,"Mine", BarColor.GREEN, BarStyle.SOLID);
             // display to the players screen.
             bb.addPlayer(player);
+
+
+            //about level
+            //Seichi-Like-level_[level(int)]
+            player.addScoreboardTag("Seichi-Like-level_0");
         }
 
 
