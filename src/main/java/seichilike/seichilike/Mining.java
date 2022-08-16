@@ -34,9 +34,19 @@ public class Mining implements Listener {
                 //for loop
                 Pattern pattern = Pattern.compile("Seichi-Like-bar_");
                 Matcher matcher = pattern.matcher(tag);
-                if(matcher.find()){
+
+                Pattern pattern2 = Pattern.compile("Seichi-Like-level_");
+                Matcher matcher2 = pattern2.matcher(tag);
+
+                Pattern pattern3 = Pattern.compile("Seichi-Like-total_");
+                Matcher matcher3 = pattern3.matcher(tag);
+
+                if(matcher.find() && matcher2.find() && matcher3.find()){
                     // when a player have "Seichi-Like-bar_"tag.
                     double D = Double.parseDouble(tag.substring(16,tag.length()));
+                    int level = Integer.getInteger(tag.substring(18,tag.length()));
+                    double total = Double.parseDouble(tag.substring(18,tag.length()));
+
                     if(D+0.01 < 1.0){
                         D += 0.01;
                         bb.setProgress(D);
