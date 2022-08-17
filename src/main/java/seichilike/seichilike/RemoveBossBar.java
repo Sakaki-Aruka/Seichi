@@ -26,11 +26,13 @@ public class RemoveBossBar implements CommandExecutor {
         NamespacedKey NK = new NamespacedKey(pl,BarKey);
         BossBar bb = Bukkit.getBossBar(NK);
 
+        bb.removePlayer((Player)sender);
 
+        /*
         Random random = new Random();
         double randomDouble = random.nextDouble();
         bb.setProgress(randomDouble);
-
+         */
 
         return false;
     }

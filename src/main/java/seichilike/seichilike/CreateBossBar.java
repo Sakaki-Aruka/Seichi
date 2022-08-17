@@ -38,11 +38,11 @@ public class CreateBossBar implements CommandExecutor {
 
             //about level
             //Seichi-Like-level_[level(int)]
-            player.addScoreboardTag("Seichi-Like-level_0");
+            player.addScoreboardTag("Seichi-Like-level_0.0");
 
             //about total seichi amount
             //Seichi-Like-total_[total amount(double)]
-            player.addScoreboardTag("Seichi-Like-total_0.0");
+            player.addScoreboardTag("Seichi-Like-total__0.0");
         }
 
 
