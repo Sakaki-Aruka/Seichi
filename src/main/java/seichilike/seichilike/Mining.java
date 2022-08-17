@@ -129,11 +129,17 @@ public class Mining implements Listener {
                 Miner.removeScoreboardTag("Seichi-Like-bar_"+D);
                 Miner.addScoreboardTag("Seichi-Like-bar_"+progress);
 
+                double percentage = progress * 100;
+                bb.setTitle("Lv:"+(int)level+" / Total:"+(int)total+" / Progress:"+String.format("%.2f",percentage)+"% / Remaining:"+(int)(border-total));
+
             }else{
                 //over the level (level up)
                 bb.setProgress(0.0);
 
                 double updated_level = level + 1.0;
+
+                double percentage = progress * 100;
+                bb.setTitle("Lv:"+(int)level+" / Total:"+(int)total+" / Progress:"+String.format("%.2f",percentage)+"%");
 
                 //level's tag update
                 Miner.removeScoreboardTag("Seichi-Like-level_"+level);
@@ -148,41 +154,15 @@ public class Mining implements Listener {
                 //say fanfare to a Miner
 
                 // [title] [subtitle] [fade(in/tick)] [stay(tick)] [fade(out/tick)]
-                Miner.sendTitle("Level up!!!["+level+" -> "+updated_level+"]","congratulations",30,100,30);
+                Miner.sendTitle("Level up!!!["+(int)level+" -> "+(int)updated_level+"]","congratulations",30,100,30);
+
+                }
+
 
             }
 
-            /*
-            if(D+0.01 < 1.0){
-                D += 0.01;
-                bb.setProgress(D);
-                Miner.removeScoreboardTag(tag);
-                Miner.addScoreboardTag("Seichi-Like-bar_"+D);
-            }else if(D+0.01 == 1.0){
-                bb.setProgress(0);
-                Miner.removeScoreboardTag(tag);
-                Miner.addScoreboardTag("Seichi-Like-bar_0.0");
-
-            }else{
-                bb.setProgress(0);
-                Miner.removeScoreboardTag(tag);
-                Miner.addScoreboardTag("Seichi-Like-bar_0.0");
-            }
-
-             */
-            }
 
 
-            /*
-            if(e.getBlock().getType().name().toLowerCase(Locale.ROOT).contains("ore")){
-                Miner.sendMessage("§bThis block is RARE.");
-                //bar-title = Break , BarColor = Green, BarStyle = no split,
-
-            }else{
-                Miner.sendMessage("§7This block is NORMAL.");
-            }
-            
-             */
         }
     }
 
