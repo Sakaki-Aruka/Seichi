@@ -47,6 +47,7 @@ public class Mining implements Listener {
                     double D = Double.parseDouble(tag.substring(16,tag.length()));
                     int level = Integer.getInteger(tag.substring(18,tag.length()));
                     double total = Double.parseDouble(tag.substring(18,tag.length()));
+                    double total_copy = total;
 
                     //calc total (start)
                     if(e.getBlock().getType().name().toLowerCase(Locale.ROOT).contains("ore")){
@@ -102,6 +103,14 @@ public class Mining implements Listener {
                     if(progress <= 1.0){
                         //in the level (no level up)
                         bb.setProgress(progress);
+
+                        //tag update
+                        Miner.removeScoreboardTag("Seichi-Like-total_"+total_copy);
+                        Miner.addScoreboardTag("Seichi-Like-total_"+total);
+
+                        Miner.removeScoreboardTag("Seichi-Like-bar_"+D);
+                        Miner.addScoreboardTag("Seichi-Like-bar_"+progress);
+
                     }else{
                         //over the level (level up)
                         bb.setProgress(0.0);
@@ -109,6 +118,17 @@ public class Mining implements Listener {
                         //level's tag update
                         Miner.removeScoreboardTag("Seichi-Like-level_"+level);
                         Miner.addScoreboardTag("Seichi-Like-level_"+level+1);
+
+                        Miner.removeScoreboardTag("Seichi-Like-bar_"+D);
+                        Miner.addScoreboardTag("Seichi-Like-bar_"+0.0);
+
+                        Miner.removeScoreboardTag("Seichi-Like-total_"+total_copy);
+                        Miner.addScoreboardTag("Seichi-Like-total_"+total);
+
+                        //say fanfare to a Miner
+                        int updated_level = level + 1;
+                        // [title] [subtitle] [fade(in/tick)] [stay(tick)] [fade(out/tick)]
+                        Miner.sendTitle("Level up!!!["+level+" -> "+updated_level+"]","congratulations",30,100,30);
 
                     }
 
