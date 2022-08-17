@@ -42,7 +42,7 @@ public class Mining implements Listener {
                 Pattern pattern3 = Pattern.compile("Seichi-Like-total_");
                 Matcher matcher3 = pattern3.matcher(tag);
 
-                if(matcher.find() && matcher2.find() && matcher3.find()){
+                if(matcher.find() || matcher2.find() || matcher3.find()){
                     // when a player have "Seichi-Like-bar_"tag.
                     double D = Double.parseDouble(tag.substring(16,tag.length()));
                     int level = Integer.getInteger(tag.substring(18,tag.length()));
@@ -105,6 +105,11 @@ public class Mining implements Listener {
                     }else{
                         //over the level (level up)
                         bb.setProgress(0.0);
+
+                        //level's tag update
+                        Miner.removeScoreboardTag("Seichi-Like-level_"+level);
+                        Miner.addScoreboardTag("Seichi-Like-level_"+level+1);
+
                     }
 
 
