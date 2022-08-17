@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.Math;
 
 public class Mining implements Listener {
     @EventHandler
@@ -46,6 +47,66 @@ public class Mining implements Listener {
                     double D = Double.parseDouble(tag.substring(16,tag.length()));
                     int level = Integer.getInteger(tag.substring(18,tag.length()));
                     double total = Double.parseDouble(tag.substring(18,tag.length()));
+
+                    //calc total (start)
+                    if(e.getBlock().getType().name().toLowerCase(Locale.ROOT).contains("ore")){
+                        total += 3.0;
+                        //bar-title = Break , BarColor = Green, BarStyle = no split,
+
+                    }else{
+                        total += 1.0;
+                    }
+                    //calc total (finish)
+
+                    // Needs = 2.0 * level^3 + 3.0*level^2 + 50*level
+                    double Needs = 2.0 * level * level * level + 3.0*level*level + 50 *level;
+                    double LevelUpLimit;
+                    double now = 2*level*level*level + 3*level*level + 50*level;
+                    double progress=0;
+
+                    if(level != 0 && level <= 100){
+                        //integral 1 -> level (2*level^3 + 3*level^2 + 50*level) dLevel
+                        // 0.5 * level^4 + level^3 + 25*level^2 - 0.5^4 - 1 - 25^2
+
+                        //level += 1;
+
+                        // a border to level-up to the next level
+                        LevelUpLimit = Math.floor(0.5*level*level*level*level + level*level*level + 25*level*level - 0.5*0.5*0.5*0.5 - 1 -25*25);
+
+                        progress = (total - LevelUpLimit)/now;
+
+
+
+
+                    }else if(level != 0 && level > 100){
+                        // level over 100
+
+                        //level += 1;
+
+                        // integral 1-> 100 (2*level^3 + 3*level^2 + 50*level) dLevel && level = 100
+                        LevelUpLimit = Math.floor(0.5*100*100*100*100 + 100*100*100 + 25*100*100 - 0.5*0.5*0.5*0.5 - 1 -25*25);
+                        LevelUpLimit += (level-100)*2500000;
+                        progress = (total - LevelUpLimit)/now;
+
+
+                    }else if(level == 0){
+                        //level 0
+                        if(total < 55){
+                            progress = total / 55;
+                        }else{
+                            //double temporary = total - 55;
+                            progress = (total-55)/Math.floor(2*2*2*2 + 3*2*2+50*2);
+                        }
+                    }
+
+                    if(progress <= 1.0){
+                        //in the level (no level up)
+                        bb.setProgress(progress);
+                    }else{
+                        //over the level (level up)
+                        bb.setProgress(0.0);
+                    }
+
 
                     if(D+0.01 < 1.0){
                         D += 0.01;
