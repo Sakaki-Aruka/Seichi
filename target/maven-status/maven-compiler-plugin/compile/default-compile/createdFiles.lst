@@ -1,5 +1,7 @@
-seichilike\seichilike\Calc.class
+seichilike\seichilike\SkillList.class
 seichilike\seichilike\CreateBossBar.class
+seichilike\seichilike\RemoveBossBar.class
+seichilike\seichilike\Skill.class
+seichilike\seichilike\Calc.class
 seichilike\seichilike\SeichiLike.class
 seichilike\seichilike\Mining.class
-seichilike\seichilike\RemoveBossBar.class

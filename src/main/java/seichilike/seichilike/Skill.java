@@ -26,11 +26,20 @@ public class Skill implements CommandExecutor {
 
         double level;
 
-        for(String tag :args){
-            if(tag.contains("-set:")){
-                
+        for(String tag :Tags){
+            String setSkill ="";
+
+            Pattern set_pattern = Pattern.compile("-set:.*\\s");
+            Matcher set_matcher = set_pattern.matcher(label);
+            if(set_matcher.find()){
+                while(set_matcher.find()){
+                    setSkill =set_matcher.group();
+                }
+                sender.sendMessage("selected a skill ('"+setSkill+"')");
+
+            }
                 //
-            }else if(tag.contains("-list")){
+            if(tag.contains("-list")){
                 //send message (can use skill list)
                 Pattern level_pattern = Pattern.compile("Seichi-Like-level_");
                 Matcher matcher = level_pattern.matcher(tag);
@@ -57,7 +66,7 @@ public class Skill implements CommandExecutor {
                     }
 
                 }else{
-                    player.sendMessage("You can't skills.");
+                    player.sendMessage("You can't use the skills.");
                     return false;
                 }
 

@@ -10,6 +10,7 @@ public final class SeichiLike extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Mining(),this);
         getCommand("bar-make").setExecutor(new CreateBossBar());
         //getCommand("bar-remove").setExecutor(new RemoveBossBar());
+        getCommand("skill").setExecutor(new Skill());
 
     }
 

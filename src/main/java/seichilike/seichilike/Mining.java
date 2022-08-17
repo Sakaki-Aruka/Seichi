@@ -21,6 +21,9 @@ public class Mining implements Listener {
     public void onBlockBreak(BlockBreakEvent e){
         Player Miner = e.getPlayer();
         if(e.getBlock().getType().isBlock()){
+
+            e.setDropItems(false);
+
             // A block that miner mined is a kind of blocks.
             String name = Miner.getName();
             Plugin pl = Bukkit.getPluginManager().getPlugin("Seichi-Like");
