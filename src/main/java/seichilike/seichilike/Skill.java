@@ -24,56 +24,75 @@ public class Skill implements CommandExecutor {
 
         ArrayList<String> SkillList = new ArrayList<>();
 
-        double level;
+        double level = 0.0;
+        int list_bool = 0;
+        int set_bool = 0;
+        int miner_bool = 0;
+        int description_bool = 0;
 
-        for(String tag :Tags){
-            String setSkill ="";
-
-            Pattern set_pattern = Pattern.compile("-set:.*\\s");
-            Matcher set_matcher = set_pattern.matcher(label);
-            if(set_matcher.find()){
-                while(set_matcher.find()){
-                    setSkill =set_matcher.group();
-                }
-                sender.sendMessage("selected a skill ('"+setSkill+"')");
-
+        for (String ii:args){
+            if(ii.equals("-list")){
+                list_bool = 3;
             }
-                //
-            if(tag.contains("-list")){
-                //send message (can use skill list)
-                Pattern level_pattern = Pattern.compile("Seichi-Like-level_");
-                Matcher matcher = level_pattern.matcher(tag);
-                if(matcher.find()){
-                    // if user have "Seichi-Like-level" tag
-                    level = Double.parseDouble(tag.substring(18,tag.length()));
-                    if(Tags.contains("-d")){
-                        //if send description option
-                        SkillList = new SkillList().SkillList(level);
 
-                        player.sendMessage("---Skill List---");
-                        for (String i:SkillList){
-                            sender.sendMessage(i);
-                        }
-                        return false;
-                    }else{
-                        SkillList = new SkillList().SkillList(level);
+            if(ii.equals("-d")){
+                description_bool = 3;
+            }
 
-                        player.sendMessage("--SKill List---");
-                        for (String i:SkillList){
-                            sender.sendMessage(i);
-                        }
-                        return false;
-                    }
-
-                }else{
-                    player.sendMessage("You can't use the skills.");
-                    return false;
-                }
-
-            }else if(tag.contains("-change")){
-                //change
+            if(ii.equals("-set")){
+                set_bool = 3;
             }
         }
+
+        if(set_bool ==3 && description_bool==3){
+            //the player send options that "set" and "description"
+            player.sendMessage("§cDo not use '-set' option and '-d' option in a same time.");
+            return false;
+        }else if(set_bool==3 && list_bool==3){
+            player.sendMessage("§cDo not use '-set' option and '-list' option in a same time.");
+            return false;
+        }
+
+        for (String i:Tags){
+            //
+            Pattern minerPattern = Pattern.compile("WorldMiner");
+            Matcher minerMatcher = minerPattern.matcher(i);
+            if(minerMatcher.find()){
+                //if the player has "WorldMiner" tag
+                miner_bool = 3;
+            }else{
+                //
+            }
+
+            Pattern levelPattern = Pattern.compile("Seichi-Like-level_");
+            Matcher levelMatcher = levelPattern.matcher(i);
+            if(levelMatcher.find()){
+                //get players level
+                level = Double.parseDouble(i.substring(18,i.length()));
+            }
+        }
+
+        if(miner_bool==0){
+            //the player does not have "WorldMiner"
+            player.sendMessage("§cYou are not a 'WorldMiner'.\nWhen you run '/bar-make', you will be a 'WorldMiner'.");
+            return false;
+        }else if(level < 3.0){
+            //no skills that the player can use
+            player.sendMessage("§cYour level is "+(int)level+". So you can not use any skills.");
+            return false;
+        }
+
+        SkillList = new SkillList().SkillListDescription(level);
+        player.sendMessage("§bYou can use these skills.");
+        if(description_bool == 3){
+            for (String iii:SkillList){
+                player.sendMessage("§b"+iii);
+            }
+        }else if(description_bool == 0){
+            //no description
+        }
+
+
 
         return false;
     }

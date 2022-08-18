@@ -3,23 +3,23 @@ package seichilike.seichilike;
 import java.util.ArrayList;
 
 public class SkillList {
-    public ArrayList<String> SkillList(double level){
+    public ArrayList<String> SkillListDescription(double level){
         ArrayList<String> SkillList = new ArrayList<>();
 
         if (level >= 3){
             // can only use 1 skill.
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
 
-        }else if(level >= 5){
+        }else if(level >= 10){
             // use 2skills.
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
             SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
-        }else if(level >= 10){
+        }else if(level >= 15){
             // use 3 skills
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
             SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
             SkillList.add("Miner\n->"+this.Description("miner"));
-        }else if(level >=20){
+        }else if(level >=25){
             // use 4 skills
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
             SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
@@ -32,7 +32,7 @@ public class SkillList {
             SkillList.add("Miner\n->"+this.Description("miner"));
             SkillList.add("Big Miner\n->"+this.Description("big-miner"));
             SkillList.add("large Miner\n->"+this.Description("large-miner"));
-        }else if(level >=50){
+        }else if(level >=65){
             //use 6 skills
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
             SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
@@ -42,6 +42,48 @@ public class SkillList {
             SkillList.add("???\n->"+this.Description("???-miner"));
         }
 
+
+        return SkillList;
+    }
+
+    public ArrayList<String> SkillListNormal(double level){
+        ArrayList<String> SkillList = new ArrayList<>();
+
+        if (level >= 3){
+            // can only use 1 skill.
+            SkillList.add("Small Miner");
+
+        }else if(level >= 10){
+            // use 2skills.
+            SkillList.add("Small Miner");
+            SkillList.add("Medium Miner");
+        }else if(level >= 15){
+            // use 3 skills
+            SkillList.add("Small Miner");
+            SkillList.add("Medium Miner");
+            SkillList.add("Miner");
+        }else if(level >=25){
+            // use 4 skills
+            SkillList.add("Small Miner");
+            SkillList.add("Medium Miner");
+            SkillList.add("Miner");
+            SkillList.add("Big Miner");
+        }else if(level >=40){
+            //use 5 skills
+            SkillList.add("Small Miner\n->"+this.Description("small-miner"));
+            SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
+            SkillList.add("Miner\n->"+this.Description("miner"));
+            SkillList.add("Big Miner\n->"+this.Description("big-miner"));
+            SkillList.add("large Miner\n->"+this.Description("large-miner"));
+        }else if(level >=65){
+            //use 6 skills
+            SkillList.add("Small Miner\n->"+this.Description("small-miner"));
+            SkillList.add("Medium Miner\n->"+this.Description("medium-miner"));
+            SkillList.add("Miner\n->"+this.Description("miner"));
+            SkillList.add("Big Miner\n->"+this.Description("big-miner"));
+            SkillList.add("large Miner\n->"+this.Description("large-miner"));
+            SkillList.add("???\n->"+this.Description("???-miner"));
+        }
 
         return SkillList;
     }
