@@ -39,8 +39,23 @@ public class Mining implements Listener {
             double level=0;
             double total=0.0;
             double total_copy=0.0;
+            double total_temporary = 0.0;
 
             Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
+
+            if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner-for-debug")){
+                if(Miner.isSneaking()){
+                    if(Miner.isFlying()){
+                        //when the Miner is flying, the skill can work
+                        total_temporary += new SkillsProcessing().Break(3,e);
+                    }
+                    // when Miner is sneaking, the skill does not work
+                }else{
+                    //use for debug
+                    total_temporary += new SkillsProcessing().Break(3,e);
+                }
+
+            }
 
             for(String tag:ArrayTags){
                 //for loop
@@ -90,6 +105,8 @@ public class Mining implements Listener {
             }
             //calc total (finish)
 
+            //total plus total_temporary(by skills)
+            total += total_temporary;
 
             double progress=0.0;
             double border = 0.0;
