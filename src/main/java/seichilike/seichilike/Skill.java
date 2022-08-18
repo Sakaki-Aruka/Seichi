@@ -1,5 +1,6 @@
 package seichilike.seichilike;
 
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,6 +22,7 @@ public class Skill implements CommandExecutor {
         Player player = (Player) sender;
         String Name = player.getName();
         Set<String> Tags = player.getScoreboardTags();
+
 
         ArrayList<String> SkillList = new ArrayList<>();
 
@@ -53,6 +55,11 @@ public class Skill implements CommandExecutor {
             return false;
         }
 
+        if(set_bool ==3){
+            //set the skill
+
+        }
+
         for (String i:Tags){
             //
             Pattern minerPattern = Pattern.compile("WorldMiner");
@@ -82,14 +89,19 @@ public class Skill implements CommandExecutor {
             return false;
         }
 
-        SkillList = new SkillList().SkillListDescription(level);
+
         player.sendMessage("§bYou can use these skills.");
         if(description_bool == 3){
+            SkillList = new SkillList().SkillListDescription(level);
             for (String iii:SkillList){
                 player.sendMessage("§b"+iii);
             }
         }else if(description_bool == 0){
+            SkillList = new SkillList().SkillListNormal(level);
             //no description
+            for (String i4:SkillList){
+                player.sendMessage("§b"+i4);
+            }
         }
 
 

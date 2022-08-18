@@ -40,6 +40,8 @@ public class Mining implements Listener {
             double total=0.0;
             double total_copy=0.0;
 
+            Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
+
             for(String tag:ArrayTags){
                 //for loop
                 Pattern pattern = Pattern.compile("Seichi-Like-bar_");
