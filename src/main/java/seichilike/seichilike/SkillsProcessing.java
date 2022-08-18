@@ -45,7 +45,7 @@ public class SkillsProcessing {
         double dx;
         double dy;
         double dz;
-        boolean ignored = true;
+
 
         //return total amount
         double return_total = 0.0;
@@ -90,21 +90,13 @@ public class SkillsProcessing {
                                     //for debug
                                     player.sendMessage("Type().name():"+block.getType().name());
 
-                                    for(String Si:IgnoreBlocks){
-                                        if(block.getType().name().toLowerCase(Locale.ROOT).contains(Si)){
-                                            //ignored
-                                            ignored = true;
-                                        }else{
-                                            ignored = false;
-                                        }
-                                    }
 
                                     //if ignored, the block is not breaking.
-                                    if(ignored){
+                                    if(block.getType().name().contains("COMMAND") || block.getType().name().contains("PORTAL")){
                                         //system does not break
                                     }else{
                                         block.setType(Material.AIR);
-                                        if(block.getType().name().toLowerCase(Locale.ROOT).contains("ore")){
+                                        if(block.getType().name().contains("_ORE")){
                                             return_total += 3.0;
                                         }else{
                                             return_total += 1.0;
