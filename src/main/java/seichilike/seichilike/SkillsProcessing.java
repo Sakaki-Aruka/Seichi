@@ -63,13 +63,52 @@ public class SkillsProcessing {
             player.sendMessage("Do not mining the blocks that under the your location.");
             return return_total;
         }else{
-            //
-            if(break_blocks == 3){
+            //break_blocks -> skills range(=width = height = depth)
+            if(break_blocks == 3 || break_blocks ==5 || break_blocks == 7 || break_blocks ==9 || break_blocks ==11){
                 //using small-miner
-                if(45 <= player_yaw && player_yaw <= 134){
-                    //player look at west
+                if((45 < player_yaw && player_yaw < 135) || -135 < player_yaw && player_yaw < -45){
+                    //
+                    //player look at west or east
+
+                    event.setCancelled(true);
+                    dy = (double) y;
+                    dx = (double) x;
+                    dz = (double) z;
+                    location = new Location(world,dx,dy,dz);
+                    block = location.getBlock();
+                    block.setType(Material.AIR);
+
+                    double z_edge_minus = ((double) break_blocks -1.0)/2;
+                    double z_edge_plus = ((double) break_blocks -1.0)/2 + 1.0;
+                    double end_edge;
+
+                    LocationCalc LC = new LocationCalc();
+
+                    for(double i=dy-1.0;i<dy+(double)break_blocks-1;i++){
+                        for(double ii=dz-z_edge_minus;ii<dz+z_edge_plus;ii++){
+                            if(45 < player_yaw && player_yaw < 135){
+                                //the player looks west
+                                end_edge = dx - (double)break_blocks;
+                                for(double iii=dx;iii>end_edge;i--){
+                                    //west
+                                    return_total += LC.calc(iii,i,ii,location,block,return_total,player);
+                                }
+                            }else{
+                                //the player looks east
+                                end_edge = dx + (double)break_blocks;
+                                for(double iii=dx;iii<end_edge;i++){
+                                    //east
+                                    return_total += LC.calc(iii,i,ii,location,block,return_total,player);
+                                }
+                            }
+                        }
+                    }
+
+                    /*
                     if(player_yaw == 90.0) {
                         //west
+
+
                         event.setCancelled(true);
                         dy = (double) y;
                         dx = (double) x;
@@ -78,9 +117,12 @@ public class SkillsProcessing {
                         block = location.getBlock();
                         block.setType(Material.AIR);
 
+                        double z_edge_minus = ((double) break_blocks -1.0)/2;
+                        double z_edge_plus = ((double) break_blocks -1.0)/2 + 1.0;
+
 
                         for(double i=dy-1.0;i<dy+(double) break_blocks-1;i++){
-                            for(double ii=dz-1.0;ii<dz+2.0;ii++){
+                            for(double ii=dz-z_edge_minus;ii<dz+z_edge_plus;ii++){
                                 for(double iii=dx;iii>dx-(double)break_blocks;iii--){
                                     location.setY(i);
                                     location.setZ(ii);
@@ -95,12 +137,15 @@ public class SkillsProcessing {
                                     if(block.getType().name().contains("COMMAND") || block.getType().name().contains("PORTAL")){
                                         //system does not break
                                     }else{
-                                        block.setType(Material.AIR);
+
                                         if(block.getType().name().contains("_ORE")){
                                             return_total += 3.0;
                                         }else{
                                             return_total += 1.0;
+
                                         }
+                                        //block replace (any -> air)
+                                        block.setType(Material.AIR);
                                     }
 
                                     //debug message
@@ -110,16 +155,18 @@ public class SkillsProcessing {
                             }
 
                         }
-
                         return return_total-1.0;
                     }
 
+                     */
 
-                }else if((-136 >= player_yaw && -180 <= player_yaw) || (135 <= player_yaw && 180 >= player_yaw)){
+                    // west write here
+
+
+
+                }else if((-135 >= player_yaw && -180 <= player_yaw) || (135 <= player_yaw && 180 >= player_yaw)){
                     //player look at north
-                }else if(-135 <= player_yaw && -46 > player_yaw){
-                    //player look at east
-                }else if(-45 <= player_yaw && player_yaw < 44){
+                }else if(-45 <= player_yaw && player_yaw <= 45){
                     //player look at south
                 }
             }

@@ -152,7 +152,7 @@ public class Mining implements Listener {
                 Miner.addScoreboardTag("Seichi-Like-bar_"+progress);
 
                 double percentage = progress * 100;
-                bb.setTitle("Lv:"+(int)level+" / Total:"+(int)total+" / Progress:"+String.format("%.2f",percentage)+"% / Remaining:"+(int)(border-total));
+                bb.setTitle("Lv:"+(int)level+" | Total:"+(int)total+" | Progress:"+String.format("%.2f",percentage)+"% | Remaining:"+(int)(border-total));
 
             }else{
                 //over the level (level up)
