@@ -40,17 +40,19 @@ public class SkillsProcessing {
 
         //about around blocks
         Location location;
-        Block block1;
         World world = player.getWorld();
         double dx;
         double dy;
         double dz;
+
+        int block_counter=0;
 
 
         //return total amount
         double return_total = 0.0;
 
         if(y <= player_y){
+            //the player looks down
             player.sendMessage("Do not mining the blocks that under the your location.");
             event.setCancelled(true);
             return return_total;
@@ -76,33 +78,48 @@ public class SkillsProcessing {
                     dz = (double) z;
                     location = new Location(world,dx,dy,dz);
                     block = location.getBlock();
+                    if(block.getType().name().contains("_ORE")){
+                        return_total += 3.0;
+                    }else if(block.getType().name().contains("AIR")){
+                        //no plus
+                    }else{
+                        return_total += 1.0;
+                    }
                     block.setType(Material.AIR);
 
-                    double z_edge_minus = ((double) break_blocks -1.0)/2;
-                    double z_edge_plus = ((double) break_blocks -1.0)/2 + 1.0;
+                    double z_edge = ((double) break_blocks -1.0)/2;
                     double end_edge;
 
                     LocationCalc LC = new LocationCalc();
 
                     for(double i=dy-1.0;i<dy+(double)break_blocks-1;i++){
-                        for(double ii=dz-z_edge_minus;ii<dz+z_edge_plus;ii++){
+                        for(double ii=dz-z_edge;ii<dz+z_edge+1.0;ii++){
                             if(45 < player_yaw && player_yaw < 135){
                                 //the player looks west
                                 end_edge = dx - (double)break_blocks;
-                                for(double iii=dx;iii>end_edge;i--){
+                                for(double iii=dx;iii>end_edge;iii--){
                                     //west
-                                    return_total += LC.calc(iii,i,ii,location,block,return_total,player);
+                                    return_total += LC.calc(iii,i,ii,location,block,player);
+
+                                    //for debug
+                                    //block_counter ++;
                                 }
                             }else{
                                 //the player looks east
                                 end_edge = dx + (double)break_blocks;
-                                for(double iii=dx;iii<end_edge;i++){
+                                for(double iii=dx;iii<end_edge;iii++){
                                     //east
-                                    return_total += LC.calc(iii,i,ii,location,block,return_total,player);
+                                    return_total += LC.calc(iii,i,ii,location,block,player);
+
+                                    //for debug
+                                    //block_counter ++;
                                 }
                             }
                         }
                     }
+                    //for debug
+                    //player.sendMessage("BlockCounter:"+block_counter);
+                    return return_total;
 
                     /*
                     if(player_yaw == 90.0) {
@@ -164,8 +181,10 @@ public class SkillsProcessing {
 
 
 
-                }else if((-135 >= player_yaw && -180 <= player_yaw) || (135 <= player_yaw && 180 >= player_yaw)){
-                    //player look at north
+                }else if(((-135 >= player_yaw && -180 <= player_yaw) || (135 <= player_yaw && 180 >= player_yaw)) || (-45 <= player_yaw && player_yaw <= 45)){
+                    //player look at north and south
+
+                    
                 }else if(-45 <= player_yaw && player_yaw <= 45){
                     //player look at south
                 }

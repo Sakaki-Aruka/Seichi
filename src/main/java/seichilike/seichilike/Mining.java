@@ -40,22 +40,37 @@ public class Mining implements Listener {
             double total=0.0;
             double total_copy=0.0;
             double total_temporary = 0.0;
+            //for debug
+            //double total_debug=0.0;
 
-            Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
+            //debug
+            //Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
 
             if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner-for-debug")){
                 if(Miner.isSneaking()){
                     if(Miner.isFlying()){
                         //when the Miner is flying, the skill can work
+                        //total_temporary += new SkillsProcessing().Break(3,e);
                         total_temporary += new SkillsProcessing().Break(3,e);
+                        if(total_temporary == 0){
+                            return;
+                        }
                     }
                     // when Miner is sneaking, the skill does not work
                 }else{
                     //use for debug
+                    //total_temporary += new SkillsProcessing().Break(3,e);
                     total_temporary += new SkillsProcessing().Break(3,e);
+                    if(total_temporary == 0){
+                        return;
+                    }
+
                 }
+                //for debug
+                //Miner.sendMessage("from skills:"+total_temporary);
 
             }
+
 
             for(String tag:ArrayTags){
                 //for loop
@@ -96,10 +111,12 @@ public class Mining implements Listener {
 
             }
             //calc total (start)
-            if(e.getBlock().getType().name().toLowerCase(Locale.ROOT).contains("ore")){
+            if(e.getBlock().getType().name().contains("_ORE")){
                 total += 3.0;
                 //bar-title = Break , BarColor = Green, BarStyle = no split,
 
+            }else if(e.getBlock().getType().name().contains("AIR")) {
+                //air no count
             }else{
                 total += 1.0;
             }

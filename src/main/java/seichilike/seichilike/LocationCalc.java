@@ -6,31 +6,34 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class LocationCalc {
-    public double calc(double x, double y, double z, Location location, Block block, double return_total, Player pLayer){
+    public double calc(double x, double y, double z, Location location, Block block,  Player player){
 
         location.setX(x);
         location.setY(y);
         location.setZ(z);
         block = location.getBlock();
+        double break_blocks = 0.0;
 
         //for debug
-        pLayer.sendMessage("Type().name():"+block.getType().name());
+        //player.sendMessage("Type().name():"+block.getType().name());
 
         //if ignored, the block is not breaking
-        if(block.getType().name().contains("COMMAND") || block.getType().name().contains("PORTAL")){
+        if(block.getType().name().contains("COMMAND") || block.getType().name().contains("PORTAL") || block.getType().name().contains("BEDROCK")){
             //system does not break
         }else{
             if(block.getType().name().contains("_ORE")){
                 //if a mined block is an ore.
-                return_total += 3.0;
+                break_blocks += 3.0;
+            }else if(block.getType().name().contains("AIR")){
+                //air
             }else{
                 //other blocks
-                return_total += 1.0;
+                break_blocks += 1.0;
             }
             //block replace (any -> air)
             block.setType(Material.AIR);
         }
 
-        return return_total;
+        return break_blocks;
     }
 }
