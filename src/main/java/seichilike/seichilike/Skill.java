@@ -4,14 +4,17 @@ import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Skill implements CommandExecutor {
+public class Skill implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command,String label,String[] args){
         if(!(sender instanceof Player)){
@@ -107,5 +110,19 @@ public class Skill implements CommandExecutor {
 
 
         return false;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args){
+        if(command.getName().equalsIgnoreCase("skill")){
+            //
+            if(args.length==1){
+                if(args[0].length() == 0) {
+                    return Arrays.asList("-d", "-list");
+                }
+            }
+        }
+
+        return null;
     }
 }
