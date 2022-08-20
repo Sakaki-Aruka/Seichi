@@ -39,7 +39,7 @@ public class SkillList {
             SkillList.add("Miner\n->"+this.Description("miner"));
             SkillList.add("Big Miner\n->"+this.Description("big-miner"));
             SkillList.add("large Miner\n->"+this.Description("large-miner"));
-            SkillList.add("???\n->"+this.Description("???-miner"));
+
         }
 
 
@@ -82,7 +82,6 @@ public class SkillList {
             SkillList.add("Miner");
             SkillList.add("Big Miner");
             SkillList.add("large Miner");
-            SkillList.add("???");
         }
 
         return SkillList;
@@ -98,11 +97,9 @@ public class SkillList {
         }else if(SkillName.equals("miner")) {
             Description = "§bMiner can break 7*7*7 blocks in front of you instead you.";
         }else if(SkillName.equals("big-miner")) {
-            Description = "§bBig Miner can break 8*8*8 blocks in front of you instead you.";
+            Description = "§bBig Miner can break 9*9*9 blocks in front of you instead you.";
         }else if(SkillName.equals("large-miner")) {
-            Description = "§bLarge Miner can break 9*9*9 blocks in front of you instead you.";
-        }else if(SkillName.equals("???-miner")) {
-            Description = "§b??? breaks 11*11*11 blocks.";
+            Description = "§bLarge Miner can break 11*11*11 blocks in front of you instead you.";
         }else if(SkillName.equals("ice-era")) {
             Description = "§bIce Era can freeze water that around you.";
         }else if(SkillName.equals("lava-era")) {

@@ -117,8 +117,12 @@ public class Skill implements CommandExecutor, TabCompleter {
         if(command.getName().equalsIgnoreCase("skill")){
             //
             if(args.length==1){
-                if(args[0].length() == 0) {
-                    return Arrays.asList("-d", "-list");
+                return Arrays.asList("-d","-list");
+            }else if(args.length==2){
+                if(args[0].startsWith("-d")){
+                    return Arrays.asList("-list");
+                }else if(args[0].startsWith("-list")){
+                    return Arrays.asList("-d");
                 }
             }
         }
