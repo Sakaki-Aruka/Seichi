@@ -11,6 +11,7 @@ public final class SeichiLike extends JavaPlugin {
         getCommand("bar-make").setExecutor(new CreateBossBar());
         //getCommand("bar-remove").setExecutor(new RemoveBossBar());
         getCommand("skill").setExecutor(new Skill());
+        getServer().getPluginManager().registerEvents(new StopWaterFalling(),this);
 
     }
 

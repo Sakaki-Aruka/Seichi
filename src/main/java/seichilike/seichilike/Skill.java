@@ -72,6 +72,61 @@ public class Skill implements CommandExecutor, TabCompleter {
                 if(skillName.equals("remove")){
                     if(Tags.contains("Seichi-Like-skill_using")){
                         //remove using tag
+                        player.removeScoreboardTag("Seichi-Like-skill_using");
+                        player.sendMessage("---------\n\nYou unselected the skill.\n\n---------");
+                        return true;
+                    }else{
+                        player.sendMessage("---------\n\nNo skill\n\n---------");
+                        return false;
+                    }
+                }else{
+                    ArrayList<String> ArrayTags = new ArrayList<>(player.getScoreboardTags());
+                    double D;
+                    double total;
+                    double total_copy;
+
+                    for(String tag:ArrayTags){
+                        //for loop
+                        Pattern pattern = Pattern.compile("Seichi-Like-bar_");
+                        Matcher matcher = pattern.matcher(tag);
+
+                        Pattern pattern2 = Pattern.compile("Seichi-Like-level_");
+                        Matcher matcher2 = pattern2.matcher(tag);
+
+                        Pattern pattern3 = Pattern.compile("Seichi-Like-total__");
+                        Matcher matcher3 = pattern3.matcher(tag);
+
+                        if(matcher.find()){
+                            try{
+                                D = Double.parseDouble(tag.substring(16,tag.length()));
+                                System.out.println("D:"+D);
+                            }catch (NullPointerException exception){
+                                System.out.println(exception);
+                            }
+
+                        }else if(matcher2.find()){
+                            try{
+                                level = Double.parseDouble(tag.substring(18,tag.length()));
+                                System.out.println("level:"+level);
+                            }catch (NullPointerException exception){
+                                System.out.println(exception);
+                            }
+
+                        }else if(matcher3.find()){
+                            try{
+                                total = Double.parseDouble(tag.substring(19,tag.length()));
+                                total_copy = total;
+                                System.out.println("total:"+total);
+                            }catch (NullPointerException exception){
+                                System.out.println(exception);
+                            }
+                        }
+
+                    }
+
+                    if(3 <= level && level < 10 && (!(skillName.equalsIgnoreCase("small-miner")))){
+                        //illegal skill pattern
+
                     }
                 }
             }

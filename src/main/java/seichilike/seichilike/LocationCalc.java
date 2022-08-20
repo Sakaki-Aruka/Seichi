@@ -21,17 +21,21 @@ public class LocationCalc {
         if(block.getType().name().contains("COMMAND") || block.getType().name().contains("PORTAL") || block.getType().name().contains("BEDROCK")){
             //system does not break
         }else{
-            if(block.getType().name().contains("_ORE")){
-                //if a mined block is an ore.
-                break_blocks += 3.0;
-            }else if(block.getType().name().contains("AIR")){
-                //air
-            }else{
-                //other blocks
-                break_blocks += 1.0;
+            if(block.getType().isBlock()){
+                if(block.getType().name().contains("_ORE")){
+                    //if a mined block is an ore.
+                    break_blocks += 3.0;
+                }else if(block.getType().name().contains("AIR") || block.getType().name().contains("WATER")){
+                    //air or water
+                }else{
+                    //other blocks
+                    break_blocks += 1.0;
+                }
+                //block replace (any -> air)
+                block.setType(Material.AIR);
             }
-            //block replace (any -> air)
-            block.setType(Material.AIR);
+
+
         }
 
         return break_blocks;
