@@ -48,6 +48,9 @@ public class Mining implements Listener {
 
             if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner-for-debug")){
                 if(Miner.isSneaking()){
+
+
+                    /*
                     if(Miner.isFlying()){
                         //when the Miner is flying, the skill can work
                         //total_temporary += new SkillsProcessing().Break(3,e);
@@ -57,6 +60,13 @@ public class Mining implements Listener {
                         }
                     }
                     // when Miner is sneaking, the skill does not work
+
+                     */
+
+                    //the player is sneaking
+                    //no processing
+
+
                 }else{
                     //use for debug
                     //total_temporary += new SkillsProcessing().Break(3,e);
