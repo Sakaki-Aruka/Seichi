@@ -45,22 +45,14 @@ public class SkillsProcessing {
         double dy;
         double dz;
 
+        double y_start;
+        double y_end;
+
         int block_counter=0;
 
 
         //return total amount
         double return_total = 0.0;
-
-
-        if(y <= player_y){
-            //the player looks down
-
-
-            event.setCancelled(true);
-            return return_total;
-        }
-
-
 
 
         if(player_pitch > 30){
@@ -98,13 +90,26 @@ public class SkillsProcessing {
 
                     LocationCalc LC = new LocationCalc();
 
-                    for(double i=dy-1.0;i<dy+(double)break_blocks-1;i++){
+                    if(y <= player_y){
+                        if(y < player_y){
+                            return return_total;
+                        }else{
+                            y_start = dy;
+                            y_end = dy + (double)break_blocks -1.0;
+                        }
+                    }else{
+                        y_start = dy-1.0;
+                        y_end = dy + (double)break_blocks -1.0;
+                    }
+
+                    for(double i=y_start;i<y_end;i++){
                         for(double ii=dz-z_edge;ii<dz+z_edge+1.0;ii++){
                             if(45 < player_yaw && player_yaw < 135){
                                 //the player looks west
                                 end_edge = dx - (double)break_blocks;
                                 for(double iii=dx;iii>end_edge;iii--){
                                     //west
+
                                     return_total += LC.calc(iii,i,ii,location,block,player);
 
                                     //for debug
@@ -150,7 +155,19 @@ public class SkillsProcessing {
 
                     LocationCalc LC = new LocationCalc();
 
-                    for(double i=dy-1.0;i<dy + (double)break_blocks-1.0;i++){
+                    if(y <= player_y){
+                        if(y < player_y){
+                            return return_total;
+                        }else{
+                            y_start = dy;
+                            y_end = dy + (double)break_blocks -1.0;
+                        }
+                    }else{
+                        y_start = dy-1.0;
+                        y_end = dy + (double)break_blocks -1.0;
+                    }
+
+                    for(double i=y_start;i<y_end;i++){
                         for(double ii=dx-x_edge;ii<dx+x_edge+1.0;ii++){
                             if(-45 <= player_yaw && player_yaw <= 0){
                                 //
@@ -186,9 +203,6 @@ public class SkillsProcessing {
 
                     return return_total;
 
-
-                }else if(-45 <= player_yaw && player_yaw <= 45){
-                    //player look at south
                 }
             }
         }
