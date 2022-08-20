@@ -93,7 +93,7 @@ public class Skill implements CommandExecutor, TabCompleter {
         }
 
 
-        player.sendMessage("§bYou can use these skills.");
+        player.sendMessage("---§bYou can use these skills.---");
         if(description_bool == 3){
             SkillList = new SkillList().SkillListDescription(level);
             for (String iii:SkillList){
