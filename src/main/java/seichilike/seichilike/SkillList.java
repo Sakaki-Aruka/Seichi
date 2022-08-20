@@ -84,7 +84,7 @@ public class SkillList {
             SkillList.add("Big Miner");
             SkillList.add("large Miner");
         }
-
+        SkillList.add("\n---------");
         return SkillList;
     }
 

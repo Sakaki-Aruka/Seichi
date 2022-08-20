@@ -60,7 +60,21 @@ public class Skill implements CommandExecutor, TabCompleter {
 
         if(set_bool ==3){
             //set the skill
-
+            /*
+            command ex; /skill -set small-miner
+             */
+            String skillName = args[1];
+            if(Tags.contains("Seichi-Like-skill_using")){
+                player.sendMessage("Cannot allow to use "+skillName+".\nPlease release the skill that is you selected.");
+                return false;
+            }else{
+                //write here
+                if(skillName.equals("remove")){
+                    if(Tags.contains("Seichi-Like-skill_using")){
+                        //remove using tag
+                    }
+                }
+            }
         }
 
         for (String i:Tags){
