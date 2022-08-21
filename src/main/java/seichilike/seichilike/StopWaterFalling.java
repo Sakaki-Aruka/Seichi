@@ -8,12 +8,9 @@ import org.bukkit.event.block.BlockFromToEvent;
 public class StopWaterFalling implements Listener {
     @EventHandler
     public void onBlockFromTo(BlockFromToEvent event){
-        System.out.println("ToBlock:"+event.getToBlock().getType().name());
-        System.out.println("Block:"+event.getBlock().getType().name());
         if(event.getBlock().getType() == Material.WATER){
             //water falling event
             event.setCancelled(true);
-            System.out.println("Event cancelled.");
         }
 
     }
