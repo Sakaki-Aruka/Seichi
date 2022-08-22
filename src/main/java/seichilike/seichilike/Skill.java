@@ -7,10 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,8 +60,11 @@ public class Skill implements CommandExecutor, TabCompleter {
             /*
             command ex; /skill -set small-miner
              */
+            if(args.length <=1){
+                return false;
+            }
             String skillName = args[1];
-            if(Tags.contains("Seichi-Like-skill_using")){
+            if(Tags.contains("Seichi-Like-skill_using") && !(skillName.equalsIgnoreCase("remove"))){
                 player.sendMessage("Cannot allow to use "+skillName+".\nPlease release the skill that is you selected.");
                 return false;
             }else{
@@ -73,10 +73,26 @@ public class Skill implements CommandExecutor, TabCompleter {
                     if(Tags.contains("Seichi-Like-skill_using")){
                         //remove using tag
                         player.removeScoreboardTag("Seichi-Like-skill_using");
+
+                        /*
+                        remove a skill that the player is using.
+                         */
+                        for (String regexLoop : player.getScoreboardTags()){
+                            Pattern skillNamePattern = Pattern.compile("Seichi-Like-skill_.{5,12}");
+                            Matcher matcher = skillNamePattern.matcher(regexLoop);
+                            if(matcher.find()){
+                                if(!(matcher.group().equalsIgnoreCase("Seichi-Like-skill_using"))){
+                                    player.removeScoreboardTag(matcher.group());
+                                    break;
+                                }
+                            }
+                        }
+
+
                         player.sendMessage("---------\n\nYou unselected the skill.\n\n---------");
                         return true;
                     }else{
-                        player.sendMessage("---------\n\nNo skill\n\n---------");
+                        player.sendMessage("---------\n\nNo skill using.\n\n---------");
                         return false;
                     }
                 }else{
@@ -84,6 +100,10 @@ public class Skill implements CommandExecutor, TabCompleter {
                     double D;
                     double total;
                     double total_copy;
+
+                    /*
+                    to get some parameters
+                     */
 
                     for(String tag:ArrayTags){
                         //for loop
@@ -124,10 +144,33 @@ public class Skill implements CommandExecutor, TabCompleter {
 
                     }
 
+                    /*
+                    check the players level and requested skill.
+                     */
+
                     if(3 <= level && level < 10 && (!(skillName.equalsIgnoreCase("small-miner")))){
                         //illegal skill pattern
-
+                        player.sendMessage("§cYou cannot select this skill.");
+                        return false;
+                    }else if(10 <= level && level < 15 && (!(skillName.equalsIgnoreCase("small-miner")) || (skillName.equalsIgnoreCase("medium-miner")))){
+                        player.sendMessage("§cYou cannot select this skill.");
+                        return false;
+                    }else if(15 <= level && level < 25 && (!(skillName.equalsIgnoreCase("small-miner") || skillName.equalsIgnoreCase("medium-miner") || skillName.equalsIgnoreCase("miner")))){
+                        player.sendMessage("§cYou cannot select this skill.");
+                        return false;
+                    }else if(25 <= level && level < 40 && (!(skillName.equalsIgnoreCase("small-miner") || skillName.equalsIgnoreCase("medium-miner") || skillName.equalsIgnoreCase("miner") || skillName.equalsIgnoreCase("big-miner")))){
+                        player.sendMessage("§cYou cannot select this skill.");
+                        return false;
+                    }else if(40 <= level  && (!(skillName.equalsIgnoreCase("small-miner") || skillName.equalsIgnoreCase("medium-miner") || skillName.equalsIgnoreCase("miner") || skillName.equalsIgnoreCase("large-miner")))){
+                        player.sendMessage("§cYou cannot select this skill.");
+                        return false;
                     }
+
+                    skillName = skillName.toLowerCase(Locale.ROOT);
+                    player.addScoreboardTag("Seichi-Like-skill_"+skillName);
+                    player.addScoreboardTag("Seichi-Like-skill_using");
+                    player.sendMessage("You can use "+skillName+".");
+                    return true;
                 }
             }
         }
@@ -162,7 +205,7 @@ public class Skill implements CommandExecutor, TabCompleter {
         }
 
 
-        player.sendMessage("---§bYou can use these skills.---");
+        player.sendMessage("---§bYou can use these skills.§f---");
         if(description_bool == 3){
             SkillList = new SkillList().SkillListDescription(level);
             for (String iii:SkillList){
@@ -186,12 +229,14 @@ public class Skill implements CommandExecutor, TabCompleter {
         if(command.getName().equalsIgnoreCase("skill")){
             //
             if(args.length==1){
-                return Arrays.asList("-d","-list");
+                return Arrays.asList("-d","-list","-set");
             }else if(args.length==2){
                 if(args[0].startsWith("-d")){
                     return Arrays.asList("-list");
                 }else if(args[0].startsWith("-list")){
                     return Arrays.asList("-d");
+                }else if(args[0].startsWith("-set")){
+                    return Arrays.asList("");
                 }
             }
         }

@@ -46,7 +46,7 @@ public class Mining implements Listener {
             //debug
             //Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
 
-            if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner-for-debug")){
+            if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner")){
                 if(Miner.isSneaking()){
 
                 }else{
@@ -60,7 +60,7 @@ public class Mining implements Listener {
                 }
 
 
-            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_medium-miner-for-debug")){
+            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_medium-miner")){
                 //write here
                 if(!(Miner.isSneaking())){
                     //the miner is not sneaking
@@ -69,6 +69,25 @@ public class Mining implements Listener {
                         return;
                     }
                 }
+            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_miner")){
+                if(!(Miner.isSneaking())){
+                    //the miner is not sneaking
+                    total_temporary += new SkillsProcessing().Break(7,e);
+                    if(total_temporary == 0){
+                        return;
+                    }
+                }
+            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_big-miner")){
+                //write here
+                if(!(Miner.isSneaking())){
+                    //the miner is not sneaking
+                    total_temporary += new SkillsProcessing().Break(9,e);
+                    if(total_temporary == 0){
+                        return;
+                    }
+                }
+            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_using")){
+
             }
 
 
