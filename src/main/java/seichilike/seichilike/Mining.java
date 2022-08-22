@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -17,6 +18,17 @@ import java.util.regex.Pattern;
 import java.lang.Math;
 
 public class Mining implements Listener {
+
+    @EventHandler
+    public void onBlockDamage(BlockDamageEvent e){
+        //set instantly break(when the player has pickaxe in main hand.)
+
+        if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE")){
+            e.setInstaBreak(true);
+        }
+
+    }
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
         Player Miner = e.getPlayer();
@@ -47,6 +59,7 @@ public class Mining implements Listener {
             //Miner.sendMessage("Yaw:"+Miner.getLocation().getYaw());
 
             if(Miner.getScoreboardTags().contains("Seichi-Like-skill_small-miner")){
+                //small-miner
                 if(Miner.isSneaking()){
 
                 }else{
@@ -61,7 +74,7 @@ public class Mining implements Listener {
 
 
             }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_medium-miner")){
-                //write here
+                //medium-miner
                 if(!(Miner.isSneaking())){
                     //the miner is not sneaking
                     total_temporary += new SkillsProcessing().Break(5,e);
@@ -70,6 +83,7 @@ public class Mining implements Listener {
                     }
                 }
             }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_miner")){
+                //miner
                 if(!(Miner.isSneaking())){
                     //the miner is not sneaking
                     total_temporary += new SkillsProcessing().Break(7,e);
@@ -78,7 +92,7 @@ public class Mining implements Listener {
                     }
                 }
             }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_big-miner")){
-                //write here
+                //big-miner
                 if(!(Miner.isSneaking())){
                     //the miner is not sneaking
                     total_temporary += new SkillsProcessing().Break(9,e);
@@ -86,8 +100,17 @@ public class Mining implements Listener {
                         return;
                     }
                 }
+            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_large-miner")){
+                //large-miner
+                if(!(Miner.isSneaking())){
+                    //the miner is not sneaking
+                    total_temporary += new SkillsProcessing().Break(11,e);
+                    if(total_temporary == 0){
+                        return;
+                    }
+                }
             }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_using")){
-
+                //when the player has this tag, allowed using a skill. Only means this.
             }
 
 

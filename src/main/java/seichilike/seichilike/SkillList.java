@@ -7,7 +7,7 @@ public class SkillList {
         ArrayList<String> SkillList = new ArrayList<>();
 
         SkillList.add("\n");
-        if (level >= 3 && level < 10){
+        if (3 <= level && level < 10){
             // can only use 1 skill.
             SkillList.add("Small Miner\n->"+this.Description("small-miner"));
 
