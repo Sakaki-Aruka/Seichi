@@ -2,7 +2,9 @@ package seichilike.seichilike;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class LocationCalc {
@@ -13,6 +15,7 @@ public class LocationCalc {
         location.setZ(z);
         block = location.getBlock();
         double break_blocks = 0.0;
+
 
         //for debug
         //player.sendMessage("Type().name():"+block.getType().name());
@@ -31,8 +34,10 @@ public class LocationCalc {
                     //other blocks
                     break_blocks += 1.0;
                 }
+
                 //block replace (any -> air)
                 block.setType(Material.AIR);
+
             }
 
 

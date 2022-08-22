@@ -2,6 +2,7 @@ package seichilike.seichilike;
 
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +25,10 @@ public class Mining implements Listener {
         //set instantly break(when the player has pickaxe in main hand.)
 
         if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE")){
-            e.setInstaBreak(true);
+            if(e.getBlock().getType().isBlock() && (!(e.getBlock().getType().name().equals("BEDROCK") || e.getBlock().getType().name().equals("PORTAL")))){
+                e.setInstaBreak(true);
+            }
+
         }
 
     }
@@ -42,6 +46,19 @@ public class Mining implements Listener {
             String BarKey = "Seichi-Like.bar."+name+".amount.seichi";
             NamespacedKey NK = new NamespacedKey(pl,BarKey);
             BossBar bb = Bukkit.getBossBar(NK);
+
+            /*
+            sound
+             */
+            try{
+                if(e.getBlock().getType().isBlock() && (!(e.getBlock().getType().name().equals("STONE")))){
+                    String soundName = "BLOCK_STONE_BREAK";
+                    Sound sound = Sound.valueOf(soundName);
+                    e.getPlayer().playSound(e.getPlayer().getLocation(),sound,1,1);
+                }
+            }catch (Exception exception){
+                System.out.println("SoundException:"+exception);
+            }
 
             //Calc
             Set tags = Miner.getScoreboardTags();
@@ -235,7 +252,18 @@ public class Mining implements Listener {
                 //say fanfare to a Miner
 
                 // [title] [subtitle] [fade(in/tick)] [stay(tick)] [fade(out/tick)]
-                Miner.sendTitle("Level up!!!["+(int)level+" -> "+(int)updated_level+"]","congratulations",30,100,30);
+                Miner.sendTitle("Level up!!!["+(int)level+" -> "+(int)updated_level+"]","Congratulations!!!",30,100,30);
+
+                try{
+                    //sound
+                    Sound sound = Sound.valueOf("ENTITY_PLAYER_LEVELUP");
+                    for (int i=0;i<3;i++){
+                        Miner.playSound(Miner.getLocation(),sound,1,1);
+                    }
+
+                }catch (Exception exception){
+                    System.out.println("Sound Exception:"+exception);
+                }
 
                 }
 
