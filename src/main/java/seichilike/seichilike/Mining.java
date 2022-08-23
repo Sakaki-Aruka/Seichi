@@ -1,14 +1,14 @@
 package seichilike.seichilike;
 
-import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -24,8 +24,9 @@ public class Mining implements Listener {
     public void onBlockDamage(BlockDamageEvent e){
         //set instantly break(when the player has pickaxe in main hand.)
 
+        String theBlock = e.getBlock().getType().name();
         if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE")){
-            if(e.getBlock().getType().isBlock() && (!(e.getBlock().getType().name().equals("BEDROCK") || e.getBlock().getType().name().equals("PORTAL")))){
+            if(e.getBlock().getType().isBlock() && (!(theBlock.equals("BEDROCK") || theBlock.equals("PORTAL") || theBlock.contains("COMMAND")))){
                 e.setInstaBreak(true);
             }
 
@@ -34,9 +35,44 @@ public class Mining implements Listener {
     }
 
     @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e){
+        // freeze water (the player walk or fly around the sea, rivers, ponds.)
+        Player player = e.getPlayer();
+        double playerX = player.getLocation().getBlockX();
+        double playerY = player.getLocation().getBlockY();
+        double playerZ = player.getLocation().getBlockZ();
+        Location checkLoc = new Location(player.getWorld(),playerX,playerY,playerZ);
+        Block block = checkLoc.getBlock();
+        String blockName;
+
+        if(!(player.getScoreboardTags().contains("Seichi-Like-freeze_true"))){
+            //if the player do not have "Seichi-Like-freeze_true" tag, finish this process.
+            return;
+        }
+
+        for(double i=playerY-1;i<playerX+6;i++){
+            for(double ii=playerX-5;ii<playerX+6;ii++){
+                for(double iii=playerZ-5;iii<playerZ+6;iii++){
+                    //block check
+                    checkLoc.setY(i);
+                    checkLoc.setX(ii);
+                    checkLoc.setZ(iii);
+                    block = checkLoc.getBlock();
+                    blockName = block.getType().name();
+
+                    if(blockName.contains("WATER") || blockName.contains("SEAGRASS") || blockName.contains("KELP")){
+                        //water found
+                        block.setType(Material.FROSTED_ICE);
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
         Player Miner = e.getPlayer();
-        if(e.getBlock().getType().isBlock()){
+        if(e.getBlock().getType().isBlock() && Miner.getScoreboardTags().contains("WorldMiner")){
 
             e.setDropItems(false);
 
@@ -51,7 +87,7 @@ public class Mining implements Listener {
             sound
              */
             try{
-                if(e.getBlock().getType().isBlock() && (!(e.getBlock().getType().name().equals("STONE")))){
+                if(e.getBlock().getType().isBlock()){
                     String soundName = "BLOCK_STONE_BREAK";
                     Sound sound = Sound.valueOf(soundName);
                     e.getPlayer().playSound(e.getPlayer().getLocation(),sound,1,1);
