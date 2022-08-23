@@ -37,8 +37,34 @@ public class Mining implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
+        //freeze water and coagulation lava
+        Player player = e.getPlayer();
+        double PlayerX = player.getLocation().getBlockX();
+        double PlayerY = player.getLocation().getBlockY();
+        double PlayerZ = player.getLocation().getBlockZ();
+        Location location = new Location(player.getWorld(),PlayerX,PlayerY,PlayerZ);
+
         Set TargetBlocks = null;
-        e.getPlayer().sendMessage("Target:"+e.getPlayer().getTargetBlock(TargetBlocks,5).getType().name());
+        String blockName = e.getPlayer().getTargetBlock(TargetBlocks,5).getType().name();
+        if(blockName.equals("WATER") || blockName.equals("LAVA")){
+            //the player as center,5*5*5 cube
+            for(double Y=PlayerY-1;Y <PlayerY+6;Y++){
+                for(double X=PlayerX-2;X <PlayerX+3;X++){
+                    for(double Z=PlayerZ-2;Z <PlayerZ+3;Z++){
+                        location.setX(X);
+                        location.setY(Y);
+                        location.setZ(Z);
+                        if(location.getBlock().getType().name().equals("WATER")){
+                            // water -> ice
+                            location.getBlock().setType(Material.ICE);
+                        }else if(location.getBlock().getType().name().contains("LAVA")){
+                            // lava -> magma block
+                            location.getBlock().setType(Material.MAGMA_BLOCK);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
