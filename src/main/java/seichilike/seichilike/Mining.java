@@ -36,6 +36,30 @@ public class Mining implements Listener {
     }
 
     @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e){
+        Player player = e.getPlayer();
+        double PlayerX = player.getLocation().getBlockX();
+        double PlayerY = player.getLocation().getBlockY();
+        double PlayerZ = player.getLocation().getBlockZ();
+        Location location = new Location(player.getWorld(),PlayerX,PlayerY,PlayerZ);
+        for(double X=PlayerX-3;X < PlayerX+4;X++){
+            for(double Y=PlayerY-1;Y < PlayerY+6;Y++){
+                for(double Z=PlayerZ-3;Z < PlayerZ+4;Z++){
+                    location.setX(X);
+                    location.setY(Y);
+                    location.setZ(Z);
+                    String BlockName = location.getBlock().getType().name();
+                    if(BlockName.contains("WATER") || BlockName.contains("KELP") || BlockName.contains("SEAGRASS")){
+                        location.getBlock().setType(Material.ICE);
+                    }else if(BlockName.contains("LAVA")){
+                        location.getBlock().setType(Material.MAGMA_BLOCK);
+                    }
+                }
+            }
+        }
+
+    }
+    /*
     public void onPlayerInteract(PlayerInteractEvent e){
         //freeze water and coagulation lava
         Player player = e.getPlayer();
@@ -66,6 +90,8 @@ public class Mining implements Listener {
             }
         }
     }
+
+     */
 
 
     @EventHandler
