@@ -33,44 +33,7 @@ public class Mining implements Listener {
         }
 
     }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e){
-        // freeze water (the player walk or fly around the sea, rivers, ponds.)
-        Player player = e.getPlayer();
-        double playerX = player.getLocation().getBlockX();
-        double playerY = player.getLocation().getBlockY();
-        double playerZ = player.getLocation().getBlockZ();
-        Location checkLoc = new Location(player.getWorld(),playerX,playerY,playerZ);
-        Block block = checkLoc.getBlock();
-        String blockName;
-
-        if(!(player.getScoreboardTags().contains("Seichi-Like-freeze_true"))){
-            //if the player do not have "Seichi-Like-freeze_true" tag, finish this process.
-            return;
-        }
-
-        for(double i=playerY-1;i<playerX+6;i++){
-            for(double ii=playerX-5;ii<playerX+6;ii++){
-                for(double iii=playerZ-5;iii<playerZ+6;iii++){
-                    //block check
-                    checkLoc.setY(i);
-                    checkLoc.setX(ii);
-                    checkLoc.setZ(iii);
-                    block = checkLoc.getBlock();
-                    blockName = block.getType().name();
-
-                    if(blockName.contains("WATER") || blockName.contains("SEAGRASS") || blockName.contains("KELP")){
-                        // water/sea grass/kelp -> frosted ice
-                        block.setType(Material.FROSTED_ICE);
-                    }else if(blockName.contains("LAVA")){
-                        //lava -> magma block
-                        block.setType(Material.MAGMA_BLOCK);
-                    }
-                }
-            }
-        }
-    }
+    
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
