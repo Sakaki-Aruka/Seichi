@@ -49,10 +49,12 @@ public class Mining implements Listener {
                     location.setY(Y);
                     location.setZ(Z);
                     String BlockName = location.getBlock().getType().name();
-                    if(BlockName.contains("WATER") || BlockName.contains("KELP") || BlockName.contains("SEAGRASS")){
+                    if(BlockName.contains("WATER") || BlockName.contains("KELP") ||BlockName.contains("KELP_PLANT")|| BlockName.contains("SEAGRASS")){
                         location.getBlock().setType(Material.ICE);
                     }else if(BlockName.contains("LAVA")){
                         location.getBlock().setType(Material.MAGMA_BLOCK);
+                    }else if(BlockName.contains("CORAL")){
+                        location.getBlock().setType(Material.ICE);
                     }
                 }
             }
