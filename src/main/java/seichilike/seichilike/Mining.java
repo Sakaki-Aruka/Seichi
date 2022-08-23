@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
@@ -33,7 +34,13 @@ public class Mining implements Listener {
         }
 
     }
-    
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e){
+        Set TargetBlocks = null;
+        e.getPlayer().sendMessage("Target:"+e.getPlayer().getTargetBlock(TargetBlocks,5).getType().name());
+    }
+
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
