@@ -11,6 +11,9 @@ public class StopWaterFalling implements Listener {
         if(event.getBlock().getType() == Material.WATER){
             //water falling event
             event.setCancelled(true);
+        }else if(event.getBlock().getType() == Material.LAVA){
+            //lava falling event
+            event.setCancelled(true);
         }
 
     }

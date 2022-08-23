@@ -61,8 +61,11 @@ public class Mining implements Listener {
                     blockName = block.getType().name();
 
                     if(blockName.contains("WATER") || blockName.contains("SEAGRASS") || blockName.contains("KELP")){
-                        //water found
+                        // water/sea grass/kelp -> frosted ice
                         block.setType(Material.FROSTED_ICE);
+                    }else if(blockName.contains("LAVA")){
+                        //lava -> magma block
+                        block.setType(Material.MAGMA_BLOCK);
                     }
                 }
             }
