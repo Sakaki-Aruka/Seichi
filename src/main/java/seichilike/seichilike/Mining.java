@@ -35,6 +35,13 @@ public class Mining implements Listener {
         if(player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.MENDING)){
             if(player.getInventory().getItemInMainHand().getType()==Material.CHEST){
 
+                int player_have = player.getInventory().getItemInMainHand().getAmount();
+                if(1 < player_have){
+                    player.getInventory().getItemInMainHand().setAmount(player_have-1);
+                }else{
+                    player.getInventory().getItemInMainHand().setAmount(0);
+                }
+
                 e.setCancelled(true);
 
                 Location location = e.getBlock().getLocation();
@@ -44,6 +51,7 @@ public class Mining implements Listener {
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                itemMeta.setDisplayName("はずれ");
                 itemStack.setItemMeta(itemMeta);
 
                 world.dropItemNaturally(location,itemStack);
