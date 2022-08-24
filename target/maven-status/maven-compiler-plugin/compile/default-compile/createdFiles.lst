@@ -1,9 +1,12 @@
+seichilike\seichilike\Freeze.class
 seichilike\seichilike\LocationCalc.class
 seichilike\seichilike\SkillList.class
 seichilike\seichilike\SkillsProcessing.class
 seichilike\seichilike\StopWaterFalling.class
+seichilike\seichilike\InstantlyBreak.class
 seichilike\seichilike\Mining.class
 seichilike\seichilike\CreateBossBar.class
+seichilike\seichilike\Lottery.class
 seichilike\seichilike\RemoveBossBar.class
 seichilike\seichilike\Skill.class
 seichilike\seichilike\Fly.class

@@ -1,11 +1,8 @@
 package seichilike.seichilike;
 
 import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.boss.BossBar;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentOffer;
+
+import org.bukkit.boss.BossBar;;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,11 +10,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.event.player.PlayerMoveEvent;;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -31,130 +24,19 @@ public class Mining implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e){
-        Player player = e.getPlayer();
-        if(player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.MENDING)){
-            if(player.getInventory().getItemInMainHand().getType()==Material.CHEST){
-
-                int player_have = player.getInventory().getItemInMainHand().getAmount();
-                if(1 < player_have){
-                    player.getInventory().getItemInMainHand().setAmount(player_have-1);
-                }else{
-                    player.getInventory().getItemInMainHand().setAmount(0);
-                }
-
-                e.setCancelled(true);
-
-                Location location = e.getBlock().getLocation();
-                World world = player.getWorld();
-
-                if(Math.random()< 0.50){
-                    ItemStack itemStack = new ItemStack(Material.COBBLESTONE);
-                    ItemMeta itemMeta = itemStack.getItemMeta();
-                    itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
-                    itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    itemMeta.setDisplayName("はずれ");
-                    itemStack.setItemMeta(itemMeta);
-
-                    world.dropItemNaturally(location,itemStack);
-                }else{
-                    ItemStack itemStack = new ItemStack(Material.END_STONE);
-                    ItemMeta itemMeta = itemStack.getItemMeta();
-                    itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
-                    itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    itemMeta.setDisplayName("あたり");
-                    itemStack.setItemMeta(itemMeta);
-
-                    world.dropItemNaturally(location,itemStack);
-                }
-
-                player.sendMessage("Lucky chest !!!");
-            }
-        }
+        new Lottery().lottery(e);
     }
 
     @EventHandler
     public void onBlockDamage(BlockDamageEvent e){
-        //set instantly break(when the player has pickaxe in main hand.)
-
-        String theBlock = e.getBlock().getType().name();
-        if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE")){
-            if(e.getBlock().getType().isBlock() && (!(theBlock.equals("BEDROCK") || theBlock.equals("PORTAL") || theBlock.contains("COMMAND")))){
-                e.setInstaBreak(true);
-            }
-
-        }
-
+        new InstantlyBreak().instant(e);
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e){
-        Player player = e.getPlayer();
-        double PlayerX = player.getLocation().getBlockX();
-        double PlayerY = player.getLocation().getBlockY();
-        double PlayerZ = player.getLocation().getBlockZ();
-        Location location = new Location(player.getWorld(),PlayerX,PlayerY,PlayerZ);
-        Location removeKelp = new Location(player.getWorld(),PlayerX+1.0,PlayerY,PlayerZ+1.0);
-
-        for(double X=PlayerX-3;X < PlayerX+4;X++){
-            for(double Y=PlayerY-1;Y < PlayerY+6;Y++){
-                for(double Z=PlayerZ-3;Z < PlayerZ+4;Z++){
-                    location.setX(X);
-                    location.setY(Y);
-                    location.setZ(Z);
-
-                    removeKelp.setX(X+1.0);
-                    removeKelp.setY(Y);
-                    removeKelp.setZ(Z+1.0);
-
-                    String BlockName = location.getBlock().getType().name();
-                    if(BlockName.contains("WATER") || BlockName.contains("KELP") ||BlockName.contains("KELP_PLANT")|| BlockName.contains("SEAGRASS") || BlockName.contains("CORAL")){
-                        // remove kelp when before freeze water
-                        if(removeKelp.getBlock().getType().name().contains("KELP")){
-                            removeKelp.getBlock().setType(Material.WATER);
-                        }
-                        location.getBlock().setType(Material.ICE);
-
-                    }else if(BlockName.contains("LAVA")){
-                        location.getBlock().setType(Material.MAGMA_BLOCK);
-                    }
-                }
-            }
-        }
-
-    }
-    /*
-    public void onPlayerInteract(PlayerInteractEvent e){
-        //freeze water and coagulation lava
-        Player player = e.getPlayer();
-        double PlayerX = player.getLocation().getBlockX();
-        double PlayerY = player.getLocation().getBlockY();
-        double PlayerZ = player.getLocation().getBlockZ();
-        Location location = new Location(player.getWorld(),PlayerX,PlayerY,PlayerZ);
-
-        Set TargetBlocks = null;
-        String blockName = e.getPlayer().getTargetBlock(TargetBlocks,5).getType().name();
-        if(blockName.equals("WATER") || blockName.equals("LAVA")){
-            //the player as center,5*5*5 cube
-            for(double Y=PlayerY-1;Y <PlayerY+6;Y++){
-                for(double X=PlayerX-2;X <PlayerX+3;X++){
-                    for(double Z=PlayerZ-2;Z <PlayerZ+3;Z++){
-                        location.setX(X);
-                        location.setY(Y);
-                        location.setZ(Z);
-                        if(location.getBlock().getType().name().equals("WATER")){
-                            // water -> ice
-                            location.getBlock().setType(Material.ICE);
-                        }else if(location.getBlock().getType().name().contains("LAVA")){
-                            // lava -> magma block
-                            location.getBlock().setType(Material.MAGMA_BLOCK);
-                        }
-                    }
-                }
-            }
-        }
+        new Freeze().freeze(e);
     }
 
-     */
 
 
     @EventHandler
