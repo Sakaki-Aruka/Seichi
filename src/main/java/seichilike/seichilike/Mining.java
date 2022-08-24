@@ -47,14 +47,26 @@ public class Mining implements Listener {
                 Location location = e.getBlock().getLocation();
                 World world = player.getWorld();
 
-                ItemStack itemStack = new ItemStack(Material.COBBLESTONE);
-                ItemMeta itemMeta = itemStack.getItemMeta();
-                itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
-                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                itemMeta.setDisplayName("はずれ");
-                itemStack.setItemMeta(itemMeta);
+                if(Math.random()< 0.50){
+                    ItemStack itemStack = new ItemStack(Material.COBBLESTONE);
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+                    itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
+                    itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    itemMeta.setDisplayName("はずれ");
+                    itemStack.setItemMeta(itemMeta);
 
-                world.dropItemNaturally(location,itemStack);
+                    world.dropItemNaturally(location,itemStack);
+                }else{
+                    ItemStack itemStack = new ItemStack(Material.END_STONE);
+                    ItemMeta itemMeta = itemStack.getItemMeta();
+                    itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
+                    itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    itemMeta.setDisplayName("あたり");
+                    itemStack.setItemMeta(itemMeta);
+
+                    world.dropItemNaturally(location,itemStack);
+                }
+
                 player.sendMessage("Lucky chest !!!");
             }
         }
