@@ -2,14 +2,22 @@ package seichilike.seichilike;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.boss.BossBar;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentOffer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -20,6 +28,29 @@ import java.util.regex.Pattern;
 import java.lang.Math;
 
 public class Mining implements Listener {
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent e){
+        Player player = e.getPlayer();
+        if(player.getInventory().getItemInMainHand().containsEnchantment(Enchantment.MENDING)){
+            if(player.getInventory().getItemInMainHand().getType()==Material.CHEST){
+
+                e.setCancelled(true);
+
+                Location location = e.getBlock().getLocation();
+                World world = player.getWorld();
+
+                ItemStack itemStack = new ItemStack(Material.COBBLESTONE);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemStack.addUnsafeEnchantment(Enchantment.MENDING,1);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                itemStack.setItemMeta(itemMeta);
+
+                world.dropItemNaturally(location,itemStack);
+                player.sendMessage("Lucky chest !!!");
+            }
+        }
+    }
 
     @EventHandler
     public void onBlockDamage(BlockDamageEvent e){
