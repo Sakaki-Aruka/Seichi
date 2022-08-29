@@ -23,11 +23,6 @@ import java.lang.Math;
 public class Mining implements Listener {
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e){
-        new Lottery().lottery(e);
-    }
-
-    @EventHandler
     public void onBlockDamage(BlockDamageEvent e){
         new InstantlyBreak().instant(e);
     }
