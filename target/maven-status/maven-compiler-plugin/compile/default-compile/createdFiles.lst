@@ -4,6 +4,7 @@ seichilike\seichilike\SkillList.class
 seichilike\seichilike\SkillsProcessing.class
 seichilike\seichilike\StopWaterFalling.class
 seichilike\seichilike\InstantlyBreak.class
+seichilike\seichilike\SneakEvent.class
 seichilike\seichilike\Mining.class
 seichilike\seichilike\CreateBossBar.class
 seichilike\seichilike\SettingsLoad.class

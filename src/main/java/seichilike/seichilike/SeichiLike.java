@@ -22,11 +22,21 @@ public final class SeichiLike extends JavaPlugin {
         this.load();
         // load chest lore end
 
+
+        // block break  event
         getServer().getPluginManager().registerEvents(new Mining(),this);
+
+        // bar-make command
         getCommand("bar-make").setExecutor(new CreateBossBar());
-        //getCommand("bar-remove").setExecutor(new RemoveBossBar());
+
+        //skill command
         getCommand("skill").setExecutor(new Skill());
+
+        // stop water falling
         getServer().getPluginManager().registerEvents(new StopWaterFalling(),this);
+
+        // pickaxe update event
+        getServer().getPluginManager().registerEvents(new SneakEvent(),this);
 
     }
 

@@ -56,6 +56,10 @@ public class LocationCalc {
         return break_blocks;
     }
 
+
+    /*
+    treasure chest drop process
+     */
     public void chance(Player player){
         double random1 = Math.random();
         double random2 = Math.random();
