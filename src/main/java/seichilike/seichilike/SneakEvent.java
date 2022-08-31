@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +85,8 @@ public class SneakEvent implements Listener {
                 this.upgrade(Material.IRON_PICKAXE,Material.IRON_PICKAXE,lore,"§r§cRedStonePickaxe",Enchantment.MENDING,10,11,player);
                 return;
 
-            }else if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==11){
+            }
+            if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==11){
                 //RedStone pickaxe -> golden pickaxe
                 ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is DiamondPickaxe.","PublicServer 2022"));
 

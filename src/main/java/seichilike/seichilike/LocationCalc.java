@@ -1,9 +1,9 @@
 package seichilike.seichilike;
 
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 public class LocationCalc {
+
+
     public double calc(double x, double y, double z, Location location, Block block,  Player player){
 
         location.setX(x);
@@ -61,13 +61,12 @@ public class LocationCalc {
     treasure chest drop process
      */
     public void chance(Player player){
-        double random1 = Math.random();
-        double random2 = Math.random();
-        String random1Result = String.format("%.2f",random1);
-        String random2Result = String.format("%.2f",random2);
 
-        if(random1Result.equals(random2Result)){
-            player.sendMessage(("§b1:"+String.format("%.2f",random1)+"/2:"+String.format("%.2f",random2)));
+        int random1 = new Random().nextInt(100);
+        int random2 = new Random().nextInt(100);
+
+        if(random1==random2){
+            //player.sendMessage(("§b1:"+String.format("%.2f",random1)+"/2:"+String.format("%.2f",random2)));
             Location player_loc = player.getLocation();
             ItemStack lotteryChest = new ItemStack(Material.CHEST);
 
@@ -79,7 +78,13 @@ public class LocationCalc {
             chestMeta.setLore(new SettingsLoad().getLore());
 
             lotteryChest.setItemMeta(chestMeta);
-            player.playSound(player_loc,Sound.BLOCK_ANVIL_PLACE,0.5f,0.7f);
+
+            //debug
+            //player.playSound(player_loc,Sound.BLOCK_ANVIL_PLACE,0.5f,0.7f);
+
+            String actionMessage = "§3You got a treasure chest!!!";
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionMessage));
+
             World world = player.getWorld();
             String warn = new SettingsLoad().getTreasureWarning();
 
