@@ -128,32 +128,37 @@ public class LocationCalc {
         //player.sendMessage("World:"+player.getWorld().getName());
 
         if(biomeName.equals("DARK_FOREST") && this.dice(100,100)){
-            this.itemSetting(Material.DRIED_KELP,"§3供物",new ArrayList<>(Arrays.asList("§r§fclass 宇迦之御魂神","","PublicServer 2022")),player);
+            this.itemSetting(Material.DRIED_KELP,"§3供物",new ArrayList<>(Arrays.asList("§r§fclass 宇迦之御魂神","属性:なし","PublicServer 2022")),player);
 
         }else if(biomeName.equals("PLAINS") && this.dice(100,100)){
-            this.itemSetting(Material.SPORE_BLOSSOM,"§3花のような命",new ArrayList<>(Arrays.asList("§r§fclass 木花之佐久夜毘売","","PublicServer 2022")),player);
+            this.itemSetting(Material.SPORE_BLOSSOM,"§3花のような命",new ArrayList<>(Arrays.asList("§r§fclass 木花之佐久夜毘売","§r§f属性:木","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("DESERT") && this.dice(100,100)){
-            this.itemSetting(Material.SHROOMLIGHT,"§3月の欠片",new ArrayList<>(Arrays.asList("§r§fclass 月読命","","PublicServer 2022")),player);
+            this.itemSetting(Material.SHROOMLIGHT,"§3月の欠片",new ArrayList<>(Arrays.asList("§r§fclass 月読命","§r§f属性:夜","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("OCEAN") && this.dice(100,100)){
-            this.itemSetting(Material.WATER_BUCKET,"§3黄泉帰りの禊",new ArrayList<>(Arrays.asList("§r§fclass 大綿津見神","","PublicServer 2022")),player);
+            this.itemSetting(Material.WATER_BUCKET,"§3黄泉帰りの禊",new ArrayList<>(Arrays.asList("§r§fclass 大綿津見神","§r§f属性:水","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("JAGGED_PEAKS") && this.dice(100,100)){
-            this.itemSetting(Material.TORCH,"§3誓約の松明",new ArrayList<>(Arrays.asList("§r§fclass 瓊瓊杵尊","","PublicServer 2022")),player);
+            this.itemSetting(Material.TORCH,"§3誓約の松明",new ArrayList<>(Arrays.asList("§r§fclass 瓊瓊杵尊","§r§f属性:自然","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("THE_END") && this.dice(100,100)){
-            this.itemSetting(Material.CHORUS_FLOWER,"§3異界の特産",new ArrayList<>(Arrays.asList("§r§fclass 客人","","PublicServer 2022")),player);
+            this.itemSetting(Material.CHORUS_FLOWER,"§3異界の特産",new ArrayList<>(Arrays.asList("§r§fclass 客人","§r§f属性:?","","PublicServer 2022")),player);
 
         }else if(player.getWorld().getName().equalsIgnoreCase("WORLD_NETHER") && this.dice(100,100)){
-            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-殺",new ArrayList<>(Arrays.asList("§r§fclas 伊邪那美命","","PublicServer 2022")),player);
+            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-殺",new ArrayList<>(Arrays.asList("§r§fclsas 伊邪那美命","§r§f属性:創世","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("SAVANNA") && this.dice(100,100)){
-            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-産",new ArrayList<>(Arrays.asList("§r§fclas 伊邪那岐命","","PublicServer 2022")),player);
+            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-産",new ArrayList<>(Arrays.asList("§r§fclass 伊邪那岐命","§r§f属性:創世","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("FOREST") && this.dice(100,100)){
-            this.itemSetting(Material.FEATHER,"§3櫛名田比売-異形",new ArrayList<>(Arrays.asList("§r§fclass 素戔男尊","","PublicServer 2022")),player);
+            this.itemSetting(Material.FEATHER,"§3櫛名田比売-異形",new ArrayList<>(Arrays.asList("§r§fclass 素戔男尊","§r§f属性:荒","","PublicServer 2022")),player);
 
+        }
+
+        // all biome
+        if(this.dice(1000,1000)){
+            this.itemSetting(Material.DIAMOND,"§3司る力",new ArrayList<>(Arrays.asList("§r§fclass 天照大御神","§f属性:主","","PublicServer 2022")),player);
         }
     }
 
