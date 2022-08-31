@@ -131,6 +131,9 @@ public class Mining implements Listener {
                 //when the player has this tag, allowed using a skill. Only means this.
             }
 
+            // orb processing
+            new LocationCalc().orb(Miner);
+            //orb processing finish
 
             for(String tag:ArrayTags){
                 //for loop

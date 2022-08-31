@@ -4,6 +4,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 public class LocationCalc {
@@ -117,5 +119,63 @@ public class LocationCalc {
                 }
             }
         }
+    }
+
+    public void orb(Player player){
+        String biomeName = player.getWorld().getBiome(player.getLocation()).toString();
+
+        //debug
+        //player.sendMessage("World:"+player.getWorld().getName());
+
+        if(biomeName.equals("DARK_FOREST") && this.dice(100,100)){
+            this.itemSetting(Material.DRIED_KELP,"§3供物",new ArrayList<>(Arrays.asList("§r§fclass 宇迦之御魂神","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("PLAINS") && this.dice(100,100)){
+            this.itemSetting(Material.SPORE_BLOSSOM,"§3花のような命",new ArrayList<>(Arrays.asList("§r§fclass 木花之佐久夜毘売","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("DESERT") && this.dice(100,100)){
+            this.itemSetting(Material.SHROOMLIGHT,"§3月の欠片",new ArrayList<>(Arrays.asList("§r§fclass 月読命","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("OCEAN") && this.dice(100,100)){
+            this.itemSetting(Material.WATER_BUCKET,"§3黄泉帰りの禊",new ArrayList<>(Arrays.asList("§r§fclass 大綿津見神","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("JAGGED_PEAKS") && this.dice(100,100)){
+            this.itemSetting(Material.TORCH,"§3誓約の松明",new ArrayList<>(Arrays.asList("§r§fclass 瓊瓊杵尊","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("THE_END") && this.dice(100,100)){
+            this.itemSetting(Material.CHORUS_FLOWER,"§3異界の特産",new ArrayList<>(Arrays.asList("§r§fclass 客人","","PublicServer 2022")),player);
+
+        }else if(player.getWorld().getName().equalsIgnoreCase("WORLD_NETHER") && this.dice(100,100)){
+            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-殺",new ArrayList<>(Arrays.asList("§r§fclas 伊邪那美命","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("SAVANNA") && this.dice(100,100)){
+            this.itemSetting(Material.COBBLED_DEEPSLATE,"§3黄泉平坂の別れ-産",new ArrayList<>(Arrays.asList("§r§fclas 伊邪那岐命","","PublicServer 2022")),player);
+
+        }else if(biomeName.equals("FOREST") && this.dice(100,100)){
+            this.itemSetting(Material.FEATHER,"§3櫛名田比売-異形",new ArrayList<>(Arrays.asList("§r§fclass 素戔男尊","","PublicServer 2022")),player);
+
+        }
+    }
+
+    public boolean dice(int range1,int range2){
+        int random1 = new Random().nextInt(range1);
+        int random2 = new Random().nextInt(range2);
+
+        if(random1==random2){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void itemSetting(Material material,String itemName,ArrayList<String> lore,Player player){
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(itemName);
+        itemMeta.addEnchant(Enchantment.ARROW_INFINITE,1,false);
+        itemMeta.setLore(lore);
+        itemStack.setItemMeta(itemMeta);
+        //item drops
+        player.getWorld().dropItemNaturally(player.getLocation(),itemStack);
     }
 }
