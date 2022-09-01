@@ -252,19 +252,72 @@ public class SneakEvent implements Listener {
         }
 
         //set extra effect
-
-        mainHandLore.add(newLore);
-        itemMeta.setLore(mainHandLore);
-        mainHand.setItemMeta(itemMeta);
-
-        offHand.setAmount(offHandAmount-amountMinus);
-
         int enchantLevel = 1;
         if(mainHand.containsEnchantment(Enchantment.DIG_SPEED)){
             enchantLevel += mainHand.getEnchantmentLevel(Enchantment.DIG_SPEED);
             mainHand.removeEnchantment(Enchantment.DIG_SPEED);
         }
 
+
+
+        mainHandLore.add(newLore);
+
+        String romanNumber="";
+        switch (enchantLevel){
+            case 1:
+                romanNumber="I";
+                break;
+            case 2:
+                romanNumber="II";
+                break;
+            case 3:
+                romanNumber="III";
+                break;
+            case 4:
+                romanNumber="IV";
+                break;
+            case 5:
+                romanNumber="V";
+                break;
+            case 6:
+                romanNumber="VI";
+                break;
+            case 7:
+                romanNumber="VII";
+                break;
+            case 8:
+                romanNumber="VIII";
+                break;
+            case 9:
+                romanNumber="IX";
+                break;
+            case 10:
+                romanNumber="X";
+                break;
+            case 11:
+                romanNumber="XI";
+                break;
+            case 12:
+                romanNumber="XII";
+                break;
+            case 13:
+                romanNumber="XIII";
+                break;
+            case 14:
+                romanNumber="XIV";
+                break;
+            case 15:
+                romanNumber="XV";
+                break;
+        }
+        mainHandLore.set(0,"§7効率強化"+romanNumber);
+        mainHandLore.set(1,"§r§fThis item is an unbreakable tool.");
+        itemMeta.setLore(mainHandLore);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        mainHand.setItemMeta(itemMeta);
+
+        offHand.setAmount(offHandAmount-amountMinus);
         mainHand.addUnsafeEnchantment(Enchantment.DIG_SPEED,enchantLevel);
     }
 }

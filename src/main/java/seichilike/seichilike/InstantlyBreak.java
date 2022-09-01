@@ -1,5 +1,6 @@
 package seichilike.seichilike;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDamageEvent;
 
 public class InstantlyBreak {
@@ -7,7 +8,9 @@ public class InstantlyBreak {
         //set instantly break(when the player has pickaxe in main hand.)
 
         String theBlock = e.getBlock().getType().name();
-        if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE")){
+        Player player = e.getPlayer();
+
+        if(e.getPlayer().getInventory().getItemInMainHand().getType().name().contains("PICKAXE") && player.getScoreboardTags().contains("Seichi-Like-skill_using")){
             if(e.getBlock().getType().isBlock() && (!(theBlock.equals("BEDROCK") || theBlock.equals("PORTAL") || theBlock.contains("COMMAND")))){
                 e.setInstaBreak(true);
             }
