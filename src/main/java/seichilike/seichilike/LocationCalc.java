@@ -128,7 +128,7 @@ public class LocationCalc {
         //player.sendMessage("World:"+player.getWorld().getName());
 
         if(biomeName.equals("DARK_FOREST") && this.dice(100,100)){
-            this.itemSetting(Material.DRIED_KELP,"§3供物",new ArrayList<>(Arrays.asList("§r§fclass 宇迦之御魂神","属性:なし","PublicServer 2022")),player);
+            this.itemSetting(Material.DRIED_KELP,"§3供物",new ArrayList<>(Arrays.asList("§r§fclass 宇迦之御魂神","§r§f属性:なし","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("PLAINS") && this.dice(100,100)){
             this.itemSetting(Material.SPORE_BLOSSOM,"§3花のような命",new ArrayList<>(Arrays.asList("§r§fclass 木花之佐久夜毘売","§r§f属性:木","","PublicServer 2022")),player);
@@ -136,7 +136,7 @@ public class LocationCalc {
         }else if(biomeName.equals("DESERT") && this.dice(100,100)){
             this.itemSetting(Material.SHROOMLIGHT,"§3月の欠片",new ArrayList<>(Arrays.asList("§r§fclass 月読命","§r§f属性:夜","","PublicServer 2022")),player);
 
-        }else if(biomeName.equals("OCEAN") && this.dice(100,100)){
+        }else if(biomeName.equals("OCEAN") && this.dice(10000,10000)){
             this.itemSetting(Material.WATER_BUCKET,"§3黄泉帰りの禊",new ArrayList<>(Arrays.asList("§r§fclass 大綿津見神","§r§f属性:水","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("JAGGED_PEAKS") && this.dice(100,100)){

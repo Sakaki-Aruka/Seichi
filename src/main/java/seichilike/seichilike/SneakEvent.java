@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class SneakEvent implements Listener {
     @EventHandler
@@ -35,11 +36,31 @@ public class SneakEvent implements Listener {
 
 
             ItemStack mainHand = player.getInventory().getItemInMainHand();
+            //debug
+            player.sendMessage("extra");
+
+            if(!(player.getInventory().getItemInOffHand()==null)){
+                // offhand item is not null.
+                ItemStack offHand = player.getInventory().getItemInOffHand();
+                if(mainHand.getType().toString().toUpperCase(Locale.ROOT).contains("PICKAXE") && offHand.containsEnchantment(Enchantment.ARROW_INFINITE)){
+                    if(offHand.getType()==Material.DRIED_KELP && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"宇迦之御魂神","§3class 宇迦之御魂神",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.SPORE_BLOSSOM && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"木花之佐久夜毘売","§3class 木花之佐久夜毘売",player);
+                        return;
+
+                    }
+                }
+
+            }
+
 
 
             if(mainHand.getType()==Material.WOODEN_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==5){
                 //wooden pickaxe -> coal pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is StonePickaxe","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is StonePickaxe","PublicServer 2022",""));
 
                 this.upgrade(Material.WOODEN_PICKAXE,Material.WOODEN_PICKAXE,lore,"§r§fCoalPickaxe",Enchantment.MENDING,5,6,player);
                 return;
@@ -47,7 +68,7 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.WOODEN_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==6){
                 //coal pickaxe -> stone pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is IronPickaxe","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is IronPickaxe","PublicServer 2022",""));
 
                 this.upgrade(Material.WOODEN_PICKAXE,Material.STONE_PICKAXE,lore,"§r§fStonePickaxe",Enchantment.MENDING,6,7,player);
                 return;
@@ -55,7 +76,7 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.STONE_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==7){
                 // stone pickaxe -> iron pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis items is an unbreakable tool.","","§r§fNext tool is CopperPickaxe","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis items is an unbreakable tool.","","§r§fNext tool is CopperPickaxe","PublicServer 2022",""));
 
                 this.upgrade(Material.STONE_PICKAXE,Material.IRON_PICKAXE,lore,"§r§fIronPickaxe",Enchantment.MENDING,7,8,player);
                 return;
@@ -64,7 +85,7 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==8){
                 // iron pickaxe -> copper pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is LapisPickaxe.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is LapisPickaxe.","PublicServer 2022",""));
 
                 this.upgrade(Material.IRON_PICKAXE,Material.IRON_PICKAXE,lore,"§r§fCopperPickaxe",Enchantment.MENDING,8,9,player);
                 return;
@@ -72,7 +93,7 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==9){
                 // copper pickaxe -> LapisLazuli pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is RedStonePickaxe.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is RedStonePickaxe.","PublicServer 2022",""));
 
                 this.upgrade(Material.IRON_PICKAXE,Material.IRON_PICKAXE,lore,"§9§rLapisLazuliPickaxe",Enchantment.MENDING,9,10,player);
                 return;
@@ -80,7 +101,7 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==10){
                 //lapis pickaxe -> redStone pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is GoldenPickaxe.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is GoldenPickaxe.","PublicServer 2022",""));
 
                 this.upgrade(Material.IRON_PICKAXE,Material.IRON_PICKAXE,lore,"§r§cRedStonePickaxe",Enchantment.MENDING,10,11,player);
                 return;
@@ -88,24 +109,34 @@ public class SneakEvent implements Listener {
             }
             if(mainHand.getType()==Material.IRON_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==11){
                 //RedStone pickaxe -> golden pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is DiamondPickaxe.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is DiamondPickaxe.","PublicServer 2022",""));
 
                 this.upgrade(Material.IRON_PICKAXE,Material.GOLDEN_PICKAXE,lore,"§r§6GoldenPickaxe",Enchantment.MENDING,11,12,player);
+                return;
 
 
             }else if(mainHand.getType()==Material.GOLDEN_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==12){
                 // golden pickaxe -> diamond pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is NetheritePickaxe.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fNext tool is NetheritePickaxe.","PublicServer 2022",""));
 
                 this.upgrade(Material.GOLDEN_PICKAXE,Material.DIAMOND_PICKAXE,lore,"§r§bDiamondPickaxe",Enchantment.MENDING,12,13,player);
-
+                return;
 
             }else if(mainHand.getType()==Material.DIAMOND_PICKAXE && mainHand.getEnchantmentLevel(Enchantment.MENDING)==13){
                 // diamond pickaxe -> netherite pickaxe
-                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fThis item is a top.","PublicServer 2022"));
+                ArrayList<String> lore = new ArrayList<>(Arrays.asList("§r§fThis item is an unbreakable tool.","","§r§fThis item is a top.","PublicServer 2022",""));
 
                 this.upgrade(Material.DIAMOND_PICKAXE,Material.NETHERITE_PICKAXE,lore,"§r§kNetheritePickaxe",Enchantment.MENDING,13,14,player);
+                return;
+
             }
+            /*
+                ↓ dig speed upgrade.
+            */
+            if(player.getInventory().getItemInOffHand()==null){
+                return;
+            }
+
 
         }
     }
@@ -167,5 +198,37 @@ public class SneakEvent implements Listener {
                 }
             }
         }
+    }
+
+    public void addDigSpeed(int amountMinus,String keyword,String newLore,Player player){
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+        int loreSize = mainHand.getItemMeta().getLore().size();
+        int offHandAmount = offHand.getAmount();
+        ItemMeta itemMeta = mainHand.getItemMeta();
+
+        ArrayList<String> mainHandLore = new ArrayList<>(mainHand.getItemMeta().getLore());
+
+        for (int i=0;i<loreSize;i++){
+            if(mainHand.getItemMeta().getLore().get(i).contains(keyword)){
+                return;
+            }
+        }
+
+        //set extra effect
+
+        mainHandLore.add(newLore);
+        itemMeta.setLore(mainHandLore);
+        mainHand.setItemMeta(itemMeta);
+
+        offHand.setAmount(offHandAmount-amountMinus);
+
+        int enchantLevel = 1;
+        if(mainHand.containsEnchantment(Enchantment.DIG_SPEED)){
+            enchantLevel += mainHand.getEnchantmentLevel(Enchantment.DIG_SPEED);
+            mainHand.removeEnchantment(Enchantment.DIG_SPEED);
+        }
+
+        mainHand.addUnsafeEnchantment(Enchantment.DIG_SPEED,enchantLevel);
     }
 }

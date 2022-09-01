@@ -38,6 +38,7 @@ public final class SeichiLike extends JavaPlugin {
         // pickaxe update event
         getServer().getPluginManager().registerEvents(new SneakEvent(),this);
 
+
     }
 
     @Override
