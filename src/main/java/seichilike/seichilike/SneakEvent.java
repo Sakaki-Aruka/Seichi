@@ -51,6 +51,42 @@ public class SneakEvent implements Listener {
                         this.addDigSpeed(32,"木花之佐久夜毘売","§3class 木花之佐久夜毘売",player);
                         return;
 
+                    }else if(offHand.getType()==Material.SHROOMLIGHT && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"月読命","§3class 月読命",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.WATER_BUCKET){
+                        this.addDigSpeed(1,"大綿津見神","§3class 大綿津見神",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.TORCH && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"瓊瓊杵尊","§3class 瓊瓊杵尊",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.CHORUS_FLOWER && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"客人","§3class 客人",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.COBBLED_DEEPSLATE && offHand.getAmount() >= 32){
+                        if(offHand.getItemMeta().getDisplayName().contains("殺")){
+                            // izanami process
+                            this.addDigSpeed(32,"伊邪那美命","§3class 伊邪那美命",player);
+                            return;
+
+                        }else if(offHand.getItemMeta().getDisplayName().contains("産")){
+                            // izanagi process
+                            this.addDigSpeed(32,"伊邪那岐命","§3class 伊邪那岐命",player);
+                            return;
+
+                        }
+                    }else if(offHand.getType()==Material.FEATHER && offHand.getAmount() >= 32){
+                        this.addDigSpeed(32,"素戔男尊","§3class 素戔男尊",player);
+                        return;
+
+                    }else if(offHand.getType()==Material.DIAMOND && offHand.getAmount()==64){
+                        this.addDigSpeed(64,"天照大御神","§3class 天照大御神",player);
+                        return;
+
                     }
                 }
 

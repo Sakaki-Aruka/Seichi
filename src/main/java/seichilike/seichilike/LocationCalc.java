@@ -136,7 +136,7 @@ public class LocationCalc {
         }else if(biomeName.equals("DESERT") && this.dice(100,100)){
             this.itemSetting(Material.SHROOMLIGHT,"§3月の欠片",new ArrayList<>(Arrays.asList("§r§fclass 月読命","§r§f属性:夜","","PublicServer 2022")),player);
 
-        }else if(biomeName.equals("OCEAN") && this.dice(10000,10000)){
+        }else if(biomeName.equals("OCEAN") && this.dice(1000,1000)){
             this.itemSetting(Material.WATER_BUCKET,"§3黄泉帰りの禊",new ArrayList<>(Arrays.asList("§r§fclass 大綿津見神","§r§f属性:水","","PublicServer 2022")),player);
 
         }else if(biomeName.equals("JAGGED_PEAKS") && this.dice(100,100)){
