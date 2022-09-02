@@ -11,6 +11,7 @@ public class SettingsLoad {
         fileConfiguration_2 = fileConfiguration;
         this.getConfig();
         this.setTreasureWarning();
+        this.setItemAmount();
     }
 
     private static ArrayList<String> lore = new ArrayList<>();
@@ -34,6 +35,10 @@ public class SettingsLoad {
         return lore;
     }
 
+    /*
+    about treasure
+     */
+
     // get warning(about treasure chest drop) text from config.yml
     public void setTreasureWarning(){
         treasureWarning = fileConfiguration_2.getString("treasureDropWarn");
@@ -43,4 +48,35 @@ public class SettingsLoad {
     public String getTreasureWarning(){
         return treasureWarning;
     }
+
+    /*
+    about treasure finish
+     */
+
+
+    /*
+    about item amount
+     */
+    public static long stairs;
+    public static long ores;
+    public static long slabs;
+    public static long logs;
+    public static long commons;
+    public static long dangerous;
+
+    public void setItemAmount(){
+        stairs = fileConfiguration_2.getLong("stairs");
+        ores = fileConfiguration_2.getLong("ores");
+        slabs = fileConfiguration_2.getLong("slabs");
+        logs = fileConfiguration_2.getLong("logs");
+        commons = fileConfiguration_2.getLong("commons");
+        dangerous = fileConfiguration_2.getLong("dangerous");
+    }
+
+
+
+    /*
+    about item amount finish
+     */
+
 }

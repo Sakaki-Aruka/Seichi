@@ -12,9 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.checkerframework.checker.units.qual.A;
+
 
 import java.util.*;
+
+import static seichilike.seichilike.SettingsLoad.*;
+
 public class LocationCalc {
 
 
@@ -39,14 +42,29 @@ public class LocationCalc {
                     //if a mined block is an ore.
                     break_blocks += 3.0;
                     chance(player);
+                    ores ++;
+
                 }else if(block.getType().name().contains("AIR") || block.getType().name().contains("WATER")){
                     //air or water
                 }else{
                     //other blocks
                     break_blocks += 1.0;
                     chance(player);
+                    if(block.getType().name().contains("_STAIRS")){
+                        System.out.println("stairs:"+stairs);
+                        stairs++;
+                    }else if(block.getType().name().contains("_SLAB")){
+                        slabs++;
+                    }else if(block.getType().name().contains("_LOG")){
+                        logs++;
+                    }else if(block.getType()==Material.TNT || block.getType()==Material.WITHER_SKELETON_SKULL || block.getType()==Material.END_CRYSTAL){
+                        System.out.println("dangerous:"+dangerous);
+                        dangerous++;
+                    }else{
+                        System.out.println("commons:"+commons);
+                        commons++;
+                    }
                 }
-
                 //block replace (any -> air)
                 block.setType(Material.AIR);
 

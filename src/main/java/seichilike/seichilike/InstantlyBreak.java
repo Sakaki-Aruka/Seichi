@@ -1,5 +1,6 @@
 package seichilike.seichilike;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDamageEvent;
 
@@ -15,6 +16,11 @@ public class InstantlyBreak {
                 e.setInstaBreak(true);
             }
 
+        }else if(!(player.getScoreboardTags().contains("Seichi-Like-skill_using"))){
+            Material breakBLock = e.getBlock().getType();
+            if(breakBLock==Material.GRAVEL || breakBLock==Material.SAND || breakBLock.name().contains("_LOG") || breakBLock.name().contains("DIRT") || breakBLock==Material.GRASS_BLOCK){
+                e.setInstaBreak(true);
+            }
         }
     }
 }

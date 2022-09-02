@@ -20,6 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.lang.Math;
 
+import static seichilike.seichilike.SettingsLoad.*;
+
 public class Mining implements Listener {
 
     @EventHandler
@@ -39,7 +41,9 @@ public class Mining implements Listener {
         Player Miner = e.getPlayer();
         if(e.getBlock().getType().isBlock() && Miner.getScoreboardTags().contains("WorldMiner")){
 
-            e.setDropItems(false);
+            // debug-mode:true
+            e.setDropItems(true);
+
 
             // A block that miner mined is a kind of blocks.
             String name = Miner.getName();
@@ -149,7 +153,7 @@ public class Mining implements Listener {
                 if(matcher.find()){
                     try{
                         D = Double.parseDouble(tag.substring(16,tag.length()));
-                        System.out.println("D:"+D);
+                        //System.out.println("D:"+D);
                     }catch (NullPointerException exception){
                         System.out.println(exception);
                     }
@@ -157,7 +161,7 @@ public class Mining implements Listener {
                 }else if(matcher2.find()){
                     try{
                         level = Double.parseDouble(tag.substring(18,tag.length()));
-                        System.out.println("level:"+level);
+                        //System.out.println("level:"+level);
                     }catch (NullPointerException exception){
                         System.out.println(exception);
                     }
@@ -166,7 +170,7 @@ public class Mining implements Listener {
                     try{
                         total = Double.parseDouble(tag.substring(19,tag.length()));
                         total_copy = total;
-                        System.out.println("total:"+total);
+                        //System.out.println("total:"+total);
                     }catch (NullPointerException exception){
                         System.out.println(exception);
                     }
@@ -176,12 +180,18 @@ public class Mining implements Listener {
             //calc total (start)
             if(e.getBlock().getType().name().contains("_ORE")){
                 total += 3.0;
+                ores++;
                 //bar-title = Break , BarColor = Green, BarStyle = no split,
 
             }else if(e.getBlock().getType().name().contains("AIR")) {
                 //air no count
             }else{
                 total += 1.0;
+                if(e.getBlock().getType()==Material.ICE){
+                    // to stop re-break ices that made falling water
+                    e.getBlock().setType(Material.AIR);
+
+                }
             }
             //calc total (finish)
 
