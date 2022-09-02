@@ -34,7 +34,10 @@ public class Mining implements Listener {
         new Freeze().freeze(e);
     }
 
-
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event){
+        new BlockSharePlace().blockSharePlace(event);
+    }
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e){
@@ -192,6 +195,16 @@ public class Mining implements Listener {
                     // to stop re-break ices that made falling water
                     e.getBlock().setType(Material.AIR);
 
+                }else if(e.getBlock().getType().name().contains("_STAIRS")){
+                    stairs++;
+                }else if(e.getBlock().getType().name().contains("_LOGS")){
+                    logs++;
+                }else if(e.getBlock().getType().name().contains("_SLAB")){
+                    slabs++;
+                }else if(e.getBlock().getType()==Material.WITHER_SKELETON_SKULL || e.getBlock().getType()==Material.TNT){
+                    dangerous++;
+                }else{
+                    commons++;
                 }
             }
             //calc total (finish)
