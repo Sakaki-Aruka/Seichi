@@ -42,6 +42,7 @@ public class Mining implements Listener {
         if(e.getBlock().getType().isBlock() && Miner.getScoreboardTags().contains("WorldMiner")){
 
 
+
             // A block that miner mined is a kind of blocks.
             String name = Miner.getName();
             Plugin pl = Bukkit.getPluginManager().getPlugin("Seichi-Like");

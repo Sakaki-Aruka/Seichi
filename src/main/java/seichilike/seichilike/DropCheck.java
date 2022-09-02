@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -23,6 +24,13 @@ public class DropCheck {
             return;
         }
 
+        //debug
+        //player.sendMessage("empty slot:"+player.getInventory().firstEmpty());
+        if(player.getInventory().firstEmpty()==-1){
+            event.setDropItems(false);
+            return;
+        }
+
         Material drop = dropItems.get(0).getType();
         for (int i=0;i<=35;i++){
             if(player.getInventory().getItem(i)==null){
@@ -31,9 +39,8 @@ public class DropCheck {
             if(player.getInventory().getItem(i).getType()==drop){
                 //when a player has this drop item, this event set cancel
                 event.setDropItems(false);
-                break;
+                return;
             }else if(i==35 && player.getInventory().getItem(i).getType() != drop){
-                player.getWorld().dropItemNaturally(player.getLocation(),new ItemStack(dropItems.get(0)));
                 break;
             }else{
                 continue;
