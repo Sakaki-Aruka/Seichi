@@ -18,7 +18,7 @@ public class InstantlyBreak {
 
         }else if(!(player.getScoreboardTags().contains("Seichi-Like-skill_using"))){
             Material breakBLock = e.getBlock().getType();
-            if(breakBLock==Material.GRAVEL || breakBLock==Material.SAND || breakBLock.name().contains("_LOG") || breakBLock.name().contains("DIRT") || breakBLock==Material.GRASS_BLOCK){
+            if(breakBLock==Material.GRAVEL || breakBLock==Material.SAND || breakBLock.name().contains("_LOG") || breakBLock.name().contains("DIRT") || breakBLock==Material.GRASS_BLOCK || breakBLock.name().contains("_LEAVES")){
                 e.setInstaBreak(true);
             }
         }

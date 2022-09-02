@@ -41,9 +41,6 @@ public class Mining implements Listener {
         Player Miner = e.getPlayer();
         if(e.getBlock().getType().isBlock() && Miner.getScoreboardTags().contains("WorldMiner")){
 
-            // debug-mode:true
-            e.setDropItems(true);
-
 
             // A block that miner mined is a kind of blocks.
             String name = Miner.getName();
@@ -131,13 +128,16 @@ public class Mining implements Listener {
                         return;
                     }
                 }
-            }else if(Miner.getScoreboardTags().contains("Seichi-Like-skill_using")){
-                //when the player has this tag, allowed using a skill. Only means this.
+            }else if(!(Miner.getScoreboardTags().contains("Seichi-Like-skill_using"))){
+                //player does not use skills
+
+                // orb processing
+                new LocationCalc().orb(Miner);
+                new DropCheck().dropCheck(e);
+                //orb processing finish
             }
 
-            // orb processing
-            new LocationCalc().orb(Miner);
-            //orb processing finish
+
 
             for(String tag:ArrayTags){
                 //for loop
