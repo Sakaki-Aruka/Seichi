@@ -38,11 +38,11 @@ public class BlockSharePlace {
             // logs
             logs--;
             refill(player,itemStack);
-        }else if(placeBlock==Material.TNT || placeBlock==Material.END_CRYSTAL || placeBlock==Material.WITHER_SKELETON_SKULL){
+        }else if(placeBlock==Material.TNT || placeBlock==Material.END_CRYSTAL || placeBlock==Material.WITHER_SKELETON_SKULL && dangerous >= 1){
             // dangerous
             dangerous--;
             refill(player,itemStack);
-        }else{
+        }else if(commons >= 1){
             commons--;
             refill(player,itemStack);
 
